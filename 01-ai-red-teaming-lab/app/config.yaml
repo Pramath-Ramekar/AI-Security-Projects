@@ -1,0 +1,12 @@
+ollama:
+  host: "http://localhost:11434"
+  model: "nemotron-mini"
+  # Swap this to "llama3" or any other pulled model to compare resistance.
+
+app:
+  host: "0.0.0.0"
+  port: 8000
+
+canary:
+  # Used by the red-team tools to check for leakage in responses.
+  value: "sk-fake-canary-7f3a9c21"
