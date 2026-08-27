@@ -1,0 +1,131 @@
+name: Red-Team CI
+ 
+# Runs whenever the system prompt or model config changes, plus manual
+# runs from the Actions tab. Keeping the trigger narrow (not "every push")
+# is deliberate: this job is slow (spins up a real local LLM), so it
+# should only fire when there's actually something new to test.
+on:
+  push:
+    paths:
+      - "app/system_prompt.txt"
+      - "app/config.yaml"
+      - "redteam/promptfoo/promptfooconfig.yaml"
+  pull_request:
+    paths:
+      - "app/system_prompt.txt"
+      - "app/config.yaml"
+      - "redteam/promptfoo/promptfooconfig.yaml"
+  workflow_dispatch: {}
+ 
+jobs:
+  redteam:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+ 
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+ 
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+ 
+      - name: Start Ollama server
+        run: |
+          nohup ollama serve > ollama.log 2>&1 &
+          for i in {1..30}; do
+            curl -sf http://localhost:11434 && break
+            sleep 2
+          done
+ 
+      - name: Pull model
+        run: ollama pull nemotron-mini
+ 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+ 
+      - name: Install app dependencies
+        working-directory: app
+        run: pip install -r requirements.txt
+ 
+      - name: Start chatbot app
+        working-directory: app
+        run: |
+          nohup python main.py > app.log 2>&1 &
+          echo "Waiting for chatbot app to become healthy..."
+          for i in {1..30}; do
+            if curl -sf http://localhost:8000/health; then
+              echo "App is up."
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App failed to start in time. Log output:"
+          cat app.log
+          exit 1
+ 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+ 
+      # --- Gate 1: Promptfoo -------------------------------------------
+      # Fast, reliable. `npx promptfoo eval` exits non-zero when any
+      # assertion fails (per Promptfoo's documented default behavior),
+      # which fails this step -- and by default a failed step stops the
+      # job here, so nothing downstream masks a real leak.
+      - name: Run Promptfoo red-team suite (gates the build)
+        working-directory: redteam/promptfoo
+        run: npx promptfoo eval --config promptfooconfig.yaml --output promptfoo-output.json
+ 
+      # --- Gate 2: PyRIT --------------------------------------------------
+      # attack_matrix.py explicitly sys.exit(1)s if the canary or real
+      # system-prompt content leaked in any objective, so this also
+      # genuinely gates the build, not just prints results.
+      - name: Install PyRIT
+        run: pip install pyrit
+ 
+      - name: Run PyRIT attack matrix (gates the build)
+        working-directory: redteam/pyrit
+        run: python attack_matrix.py
+ 
+      # --- Informational only: Garak --------------------------------------
+      # Known limitation (confirmed during local testing): this probe
+      # does not honor soft_probe_prompt_cap and can run 250+ prompts,
+      # which risks exceeding a normal CI budget on a CPU-only runner.
+      # It gets its own short timeout and continue-on-error so a slow
+      # or incomplete Garak run never blocks or fails the two real
+      # gates above. Treat its output as supplementary evidence, not
+      # a pass/fail signal, until this is revisited with a probe that
+      # reliably respects the prompt cap.
+      - name: Install Garak
+        run: pip install garak
+ 
+      - name: Run Garak (informational, non-blocking)
+        working-directory: redteam/garak
+        timeout-minutes: 10
+        continue-on-error: true
+        run: |
+          garak --target_type rest \
+            --generator_option_file garak_config.json \
+            --probes promptinject.HijackHateHumans \
+            --parallel_attempts 4
+ 
+      - name: Upload Promptfoo results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: promptfoo-results
+          path: redteam/promptfoo/promptfoo-output.json
+          if-no-files-found: warn
+ 
+      - name: Upload debug logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-logs
+          path: |
+            app/app.log
+            ollama.log
+ 
