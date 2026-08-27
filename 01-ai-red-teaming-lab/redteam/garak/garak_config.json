@@ -1,0 +1,20 @@
+{
+  "run": {
+    "soft_probe_prompt_cap": 10
+  },
+  "rest": {
+    "RestGenerator": {
+      "uri": "http://localhost:8000/chat",
+      "method": "post",
+      "request_timeout": 300,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "req_template_json_object": {
+        "message": "$INPUT"
+      },
+      "response_json": true,
+      "response_json_field": "response"
+    }
+  }
+}
