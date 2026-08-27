@@ -74,35 +74,32 @@ jobs:
         with:
           node-version: "20"
 
-      # --- Gate 1: Promptfoo -------------------------------------------
-      # Fast, reliable. `npx promptfoo eval` exits non-zero when any
-      # assertion fails (per Promptfoo's documented default behavior),
-      # which fails this step -- and by default a failed step stops the
-      # job here, so nothing downstream masks a real leak.
-      - name: Run Promptfoo red-team suite (gates the build)
+      # --- All three tools always run now, regardless of each other's
+      # result. `continue-on-error: true` + a step `id` lets us check
+      # each one's actual outcome afterward, in the "Evaluate overall
+      # result" step below -- that's what still fails the job overall
+      # when a real leak is found, without skipping the other tools'
+      # evidence in the process.
+
+      - name: Run Promptfoo red-team suite
+        id: promptfoo
+        continue-on-error: true
         working-directory: 01-ai-red-teaming-lab/redteam/promptfoo
         run: npx promptfoo eval --config promptfooconfig.yaml --output promptfoo-output.json
 
-      # --- Gate 2: PyRIT --------------------------------------------------
-      # attack_matrix.py explicitly sys.exit(1)s if the canary or real
-      # system-prompt content leaked in any objective, so this also
-      # genuinely gates the build, not just prints results.
       - name: Install PyRIT
         run: pip install pyrit
 
-      - name: Run PyRIT attack matrix (gates the build)
+      - name: Run PyRIT attack matrix
+        id: pyrit
+        continue-on-error: true
         working-directory: 01-ai-red-teaming-lab/redteam/pyrit
         run: python attack_matrix.py
 
-      # --- Informational only: Garak --------------------------------------
-      # Known limitation (confirmed during local testing): this probe
-      # does not honor soft_probe_prompt_cap and can run 250+ prompts,
-      # which risks exceeding a normal CI budget on a CPU-only runner.
-      # It gets its own short timeout and continue-on-error so a slow
-      # or incomplete Garak run never blocks or fails the two real
-      # gates above. Treat its output as supplementary evidence, not
-      # a pass/fail signal, until this is revisited with a probe that
-      # reliably respects the prompt cap.
+      # Garak remains informational only (known limitation: this probe
+      # doesn't honor soft_probe_prompt_cap, so its run time is
+      # unpredictable on a CPU-only runner) -- capped and non-blocking,
+      # same as before.
       - name: Install Garak
         run: pip install garak
 
@@ -115,6 +112,24 @@ jobs:
             --generator_option_file garak_config.json \
             --probes promptinject.HijackHateHumans \
             --parallel_attempts 4
+
+      # --- Final verdict --------------------------------------------------
+      # This is the actual gate. Promptfoo and PyRIT both ran above no
+      # matter what; this step is where we decide whether the overall
+      # job passes or fails, based on what they actually found.
+      - name: Evaluate overall red-team result
+        if: always()
+        run: |
+          echo "Promptfoo outcome: ${{ steps.promptfoo.outcome }}"
+          echo "PyRIT outcome: ${{ steps.pyrit.outcome }}"
+          if [ "${{ steps.promptfoo.outcome }}" != "success" ] || [ "${{ steps.pyrit.outcome }}" != "success" ]; then
+            echo ""
+            echo "RED-TEAM CI FAILED: at least one gate (Promptfoo and/or"
+            echo "PyRIT) detected a leak. See that step's logs above for"
+            echo "which prompt(s) caused it."
+            exit 1
+          fi
+          echo "All gates passed: no leaks detected."
 
       - name: Upload Promptfoo results
         if: always()
