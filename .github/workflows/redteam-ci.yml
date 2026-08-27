@@ -21,6 +21,11 @@ on:
       - "01-ai-red-teaming-lab/redteam/promptfoo/promptfooconfig.yaml"
   workflow_dispatch: {}
 
+# Needed so the "Commit and push evidence" step at the end can push
+# results/ back into the repository using the built-in token.
+permissions:
+  contents: write
+
 jobs:
   redteam:
     runs-on: ubuntu-latest
@@ -40,7 +45,6 @@ jobs:
             curl -sf http://localhost:11434 && break
             sleep 2
           done
-
       - name: Pull model
         run: ollama pull nemotron-mini
 
@@ -68,7 +72,6 @@ jobs:
           echo "App failed to start in time. Log output:"
           cat app.log
           exit 1
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -94,7 +97,9 @@ jobs:
         id: pyrit
         continue-on-error: true
         working-directory: 01-ai-red-teaming-lab/redteam/pyrit
-        run: python attack_matrix.py
+        # Tee to a log file as well as stdout, so this run's full output
+        # can be saved as evidence, not just shown in the Actions console.
+        run: python attack_matrix.py 2>&1 | tee pyrit-output.log
 
       # Garak remains informational only (known limitation: this probe
       # doesn't honor soft_probe_prompt_cap, so its run time is
@@ -113,12 +118,12 @@ jobs:
             --probes promptinject.HijackHateHumans \
             --parallel_attempts 4 \
             --generations 2
-
       # --- Final verdict --------------------------------------------------
       # This is the actual gate. Promptfoo and PyRIT both ran above no
       # matter what; this step is where we decide whether the overall
       # job passes or fails, based on what they actually found.
       - name: Evaluate overall red-team result
+        id: verdict
         if: always()
         run: |
           echo "Promptfoo outcome: ${{ steps.promptfoo.outcome }}"
@@ -128,9 +133,64 @@ jobs:
             echo "RED-TEAM CI FAILED: at least one gate (Promptfoo and/or"
             echo "PyRIT) detected a leak. See that step's logs above for"
             echo "which prompt(s) caused it."
+            echo "result=FAIL" >> "$GITHUB_OUTPUT"
             exit 1
           fi
           echo "All gates passed: no leaks detected."
+          echo "result=PASS" >> "$GITHUB_OUTPUT"
+
+      # --- Evidence capture -----------------------------------------------
+      # Copies each tool's raw output into results/latest/ and commits it
+      # back to the repo. Always runs (even after a failed gate above),
+      # so a run that found a real leak still leaves proof behind instead
+      # of only a temporary, expiring Actions artifact.
+      - name: Collect evidence
+        if: always()
+        run: |
+          mkdir -p 01-ai-red-teaming-lab/results/latest
+
+          cp 01-ai-red-teaming-lab/redteam/promptfoo/promptfoo-output.json \
+             01-ai-red-teaming-lab/results/latest/promptfoo-output.json 2>/dev/null || \
+             echo "No Promptfoo output to copy."
+
+          cp 01-ai-red-teaming-lab/redteam/pyrit/pyrit-output.log \
+             01-ai-red-teaming-lab/results/latest/pyrit-output.log 2>/dev/null || \
+             echo "No PyRIT output to copy."
+
+          LATEST_GARAK=$(find ~/.local/share/garak/garak_runs -name "*.jsonl" 2>/dev/null | sort | tail -1)
+          if [ -n "$LATEST_GARAK" ]; then
+            cp "$LATEST_GARAK" 01-ai-red-teaming-lab/results/latest/garak-report.jsonl
+          else
+            echo "No Garak report found."
+          fi
+
+          cat > 01-ai-red-teaming-lab/results/latest/SUMMARY.md << EOF
+          # Latest Red-Team CI Run
+
+          - **Run:** ${{ github.run_id }} (${{ github.run_number }})
+          - **Triggered by:** ${{ github.event_name }}
+          - **Commit:** ${{ github.sha }}
+          - **Date:** $(date -u +"%Y-%m-%d %H:%M UTC")
+          - **Overall result:** ${{ steps.verdict.outputs.result }}
+          - **Promptfoo outcome:** ${{ steps.promptfoo.outcome }}
+          - **PyRIT outcome:** ${{ steps.pyrit.outcome }}
+
+          Raw evidence in this folder is overwritten by each CI run.
+          See docs/security-assessment.md for the written analysis.
+          EOF
+
+      - name: Commit and push evidence
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add 01-ai-red-teaming-lab/results/latest
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update red-team evidence from CI run ${{ github.run_number }}"
+            git push
+          fi
 
       - name: Upload Promptfoo results
         if: always()
