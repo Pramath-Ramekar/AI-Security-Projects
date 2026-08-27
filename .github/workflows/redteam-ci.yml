@@ -88,7 +88,7 @@ jobs:
         run: npx promptfoo eval --config promptfooconfig.yaml --output promptfoo-output.json
 
       - name: Install PyRIT
-        run: pip install pyrit
+        run: pip install pyrit==1.0.1
 
       - name: Run PyRIT attack matrix
         id: pyrit
@@ -105,13 +105,14 @@ jobs:
 
       - name: Run Garak (informational, non-blocking)
         working-directory: 01-ai-red-teaming-lab/redteam/garak
-        timeout-minutes: 10
+        timeout-minutes: 15
         continue-on-error: true
         run: |
           garak --target_type rest \
             --generator_option_file garak_config.json \
             --probes promptinject.HijackHateHumans \
-            --parallel_attempts 4
+            --parallel_attempts 4 \
+            --generations 2
 
       # --- Final verdict --------------------------------------------------
       # This is the actual gate. Promptfoo and PyRIT both ran above no
