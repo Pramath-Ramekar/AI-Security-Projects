@@ -1,0 +1,24 @@
+No default environment files found. Using system environment variables only.
+[pyrit:alembic] No new upgrade operations detected.
+Traceback (most recent call last):
+  File "/home/runner/work/AI-Security-Projects/AI-Security-Projects/01-ai-red-teaming-lab/redteam/pyrit/attack_matrix.py", line 120, in <module>
+    asyncio.run(main())
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/runner/work/AI-Security-Projects/AI-Security-Projects/01-ai-red-teaming-lab/redteam/pyrit/attack_matrix.py", line 67, in main
+    target = HTTPTarget(
+             ^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pyrit/prompt_target/http_target/http_target.py", line 74, in __init__
+    _, _, endpoint, _, _ = self.parse_raw_http_request(http_request)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pyrit/prompt_target/http_target/http_target.py", line 257, in parse_raw_http_request
+    key, value = line.split(":", 1)
+    ^^^^^^^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
