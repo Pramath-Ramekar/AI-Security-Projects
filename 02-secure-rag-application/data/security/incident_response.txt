@@ -1,0 +1,150 @@
+AEGIS TECHNOLOGIES — INCIDENT RESPONSE PLAN
+Effective: April 1, 2024 | Version: 4.2
+Classification: Confidential — Security Team & Leadership
+Owner: CISO | Review: Quarterly + Post-Incident | Test: Tabletop (Quarterly), Live (Semi-Annual)
+
+1. PURPOSE
+Define standardized process for detecting, responding to, and recovering from
+information security incidents affecting Aegis Technologies' confidentiality,
+integrity, and availability of data and systems.
+
+2. INCIDENT CLASSIFICATION (SEV Levels)
+SEV-1 (Critical): Active breach, customer data exfiltration, production downtime > 5 min,
+                 ransomware, zero-day exploit in environment, regulatory notification required
+  Response: Immediate (24/7), CISO + CTO + Legal + PR notified within 15 min
+  Comms: War room (Slack #incident-sev1 + Zoom bridge), status page update < 30 min
+  SLA: Containment < 1 hr, Eradication < 4 hr, Recovery < 8 hr
+
+SEV-2 (High):   Suspected breach, lateral movement detected, credential compromise,
+                 critical vulnerability exploited, customer-facing service degraded > 15 min
+  Response: < 30 min (business hours), < 1 hr (off-hours), Security Lead + Eng Lead
+  Comms: Slack #incident-sev2, stakeholder notification < 1 hr
+  SLA: Containment < 4 hr, Eradication < 24 hr, Recovery < 48 hr
+
+SEV-3 (Medium): Malware on endpoint, phishing credential harvest, misconfiguration exposure,
+                 non-critical vulnerability exploited, failed attack with indicators
+  Response: < 2 hr (business hours), next business day (off-hours)
+  Comms: Slack #incident-sev3, ticket in Jira (SEC-INC-XXXX)
+  SLA: Containment < 24 hr, Eradication < 72 hr, Recovery < 1 week
+
+SEV-4 (Low):    Policy violation, suspicious activity (no compromise), scan/recon activity,
+                 minor misconfiguration, failed phishing attempt (reported)
+  Response: Next business day, assigned analyst
+  Comms: Jira ticket only
+  SLA: Resolution < 30 days
+
+3. INCIDENT RESPONSE LIFECYCLE
+
+PHASE 1: PREPARATION (Continuous)
+- IR team: 6 FTE (Lead, 3 Analysts, Forensics, Threat Intel) + 24/7 on-call rotation
+- Tools: SIEM (Splunk), EDR (CrowdStrike), NDR (Corelight), SOAR (Tines), Forensics (Velociraptor)
+- Playbooks: 47 documented (ransomware, BEC, cloud compromise, supply chain, insider threat)
+- Training: Quarterly tabletop, annual red team exercise, monthly purple team
+- Threat intel: MISP instance, STIX/TAXII feeds, industry ISACs (FS-ISAC, MS-ISAC)
+
+PHASE 2: DETECTION & ANALYSIS
+Sources: SIEM alerts, EDR detections, user reports, threat intel feeds, vendor notifications,
+         bug bounty, third-party breach notices, law enforcement
+Triage (within 15 min of alert):
+  1. Validate: True positive? (Enrichment: IOC reputation, MITRE ATT&CK mapping)
+  2. Scope: Affected assets, accounts, data, network segments
+  3. Classify: Assign SEV level, appoint Incident Commander (IC)
+  4. Notify: Per SEV notification matrix (Appendix A)
+  5. Preserve: Snapshot disks, capture memory, export logs (chain of custody)
+
+PHASE 3: CONTAINMENT
+Short-term (immediate):
+  - Network: Quarantine VLAN, block C2 at firewall, revoke compromised tokens
+  - Endpoint: Isolate host (EDR), disable user account, rotate compromised credentials
+  - Cloud: Revoke IAM keys, modify security groups, detach compromised instances
+  - Evidence: Preserve volatile memory, disk images, log exports before remediation
+Long-term (sustained):
+  - Apply patches, rebuild systems from golden images, rotate all related credentials
+  - Implement compensating controls (WAF rules, detection signatures, allowlists)
+  - Verify: No persistent access, no lateral movement paths remain
+
+PHASE 4: ERADICATION
+- Root cause identification: Mandatory for SEV-1/2, 5 Whys + timeline reconstruction
+- Malware removal: Full disk wipe + reimage (no cleaning), verify with YARA/IOC sweep
+- Vulnerability remediation: Patch, config change, architecture fix — validated in staging
+- Credential rotation: All potentially exposed (service accounts, SSH keys, API tokens)
+- Persistence check: Scheduled tasks, WMI, registry, cloud IAM, Kubernetes RBAC, GitHub apps
+
+PHASE 5: RECOVERY
+- Staged restoration: Critical systems → supporting systems → validation → traffic shift
+- Verification: Synthetic transactions, data integrity checks, performance baselines
+- Monitoring: Enhanced (100% log ingestion, 1-min SIEM queries) for 30 days post-recovery
+- Customer communication: Coordinated with Legal/PR, template-based, regulatory review
+- Service restoration confirmation: Business owner sign-off before SEV closure
+
+PHASE 6: POST-INCIDENT ACTIVITY
+- Blameless Postmortem (within 5 business days for SEV-1/2, 10 for SEV-3):
+  Timeline, root cause, contributing factors, what went well, what didn't, action items
+- Action Items: Tracked in Jira (SEC-AI-XXXX), owner, due date, CISO review monthly
+- Metrics: MTTA, MTTC, MTTR, recurrence rate, detection coverage gap
+- Reporting: Board (SEV-1), Executive Leadership (SEV-1/2), Customer (if affected)
+- Regulatory: Legal determines notification obligations (GDPR 72 hr, CCPA, SEC 4-day, state laws)
+
+4. COMMUNICATION PROTOCOLS
+Internal:
+- SEV-1: #incident-sev1 (all hands), Zoom bridge, executive summary hourly
+- SEV-2: #incident-sev2, stakeholder update every 2 hr
+- SEV-3/4: Jira ticket comments, weekly summary in #security-ops
+External:
+- Customer: Status page (status.aegistech.com), direct email for affected tenants
+- Regulatory: Legal-owned, coordinated with outside counsel
+- Law Enforcement: CISO + Legal only, FBI IC3 / CISA / local as applicable
+- Media: PR-owned, holding statement < 1 hr, detailed update < 4 hr (SEV-1 only)
+
+5. EVIDENCE HANDLING & LEGAL
+- Chain of custody: Digital (hash-verified, timestamped) + Physical (sealed, logged)
+- Legal hold: Activated by General Counsel, applies to all related systems/logs
+- Privilege: IR communications marked "Attorney-Client Privileged / Work Product"
+- Retention: Evidence 7 years, IR records 7 years, postmortems 3 years
+
+6. THIRD-PARTY & SUPPLY CHAIN INCIDENTS
+- Vendor breach notification: Contractual 24-hr requirement (DPAs, MSAs)
+- Assessment: Vendor risk tier, data shared, access granted, blast radius
+- Action: Access revocation, data retrieval/destruction verification, alternative sourcing
+- Software supply chain: SBOM analysis, dependency scan, build pipeline verification
+
+7. SPECIFIC SCENARIO PLAYBOOKS (Reference)
+- PB-IR-001: Ransomware / Extortion
+- PB-IR-002: Business Email Compromise
+- PB-IR-003: Cloud Account Compromise (AWS/GCP/Azure)
+- PB-IR-004: Kubernetes Cluster Compromise
+- PB-IR-005: Source Code / CI/CD Pipeline Compromise
+- PB-IR-006: Insider Threat (Data Theft / Sabotage)
+- PB-IR-007: Third-Party / Supply Chain Breach
+- PB-IR-008: Vulnerability Exploitation (Internet-Facing)
+- PB-IR-009: Lost/Stolen Device (Corporate / BYOD)
+- PB-IR-010: Physical Security Incident (Datacenter / Office)
+
+8. METRICS & KPIs (Reported Monthly to Leadership)
+- Mean Time to Acknowledge (MTTA): Target < 15 min (SEV-1), < 30 min (SEV-2)
+- Mean Time to Contain (MTTC): Target < 1 hr (SEV-1), < 4 hr (SEV-2)
+- Mean Time to Recover (MTTR): Target < 8 hr (SEV-1), < 48 hr (SEV-2)
+- Detection Coverage: % of MITRE ATT&CK techniques with detection rule
+- False Positive Rate: Target < 20% of alerts requiring analyst review
+- Recurrence Rate: Same root cause within 12 months = process failure
+
+9. ESCALATION MATRIX (Appendix A - Summary)
+SEV-1: IC → CISO → CTO → CEO → Board (if material) | Legal/PR parallel
+SEV-2: IC → Security Director → CISO | Eng Director → CTO
+SEV-3: Analyst → Security Lead → Security Director
+SEV-4: Analyst → Security Lead (weekly review)
+
+10. CONTINUOUS IMPROVEMENT
+- Postmortem action items: 90% closure within due date target
+- Detection engineering: New rules from each SEV-1/2 within 2 weeks
+- Threat hunting: Hypothesis-driven, informed by IR trends, monthly
+- Red team: Annual full-scope, findings → detection rules → playbook updates
+
+CONTACTS
+CISO: ciso@aegistech.com | PagerDuty "ciso-oncall"
+Security Director: sec-director@aegistech.com | PagerDuty "sec-director-oncall"
+IR Lead (Primary): ir-lead@aegistech.com | PagerDuty "ir-primary"
+Legal (GC): gc@aegistech.com | Emergency: +1-703-555-0199
+PR/Communications: pr@aegistech.com | Emergency: +1-703-555-0188
+
+DISTRIBUTION: Security Team, Engineering Leadership, Legal, PR, Executive Leadership

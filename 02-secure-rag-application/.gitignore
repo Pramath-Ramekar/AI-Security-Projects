@@ -1,0 +1,29 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Logs
+logs/*.log
+logs/*.jsonl
+
+# Vector DB / data
+data/*.db
+data/*.pkl
+data/*.index
+chroma_db/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,129 @@
+AEGIS TECHNOLOGIES — COMPENSATION STRUCTURE & GUIDELINES
+FY2024 (Effective March 1, 2024) | Version: 2.3
+Classification: Restricted — HR, Finance, People Managers Only
+Owner: VP People Operations & CFO | Annual Review: December
+
+COMPENSATION PHILOSOPHY
+Target 65th percentile of market (Radford Technology, Levels.fyi, OptionImpact)
+Pay for performance: Differentiated outcomes for differentiated contributions
+Equity as ownership: Broad-based grants, 4-year vesting, 1-year cliff
+Transparency: Bands published internally, individual placement shared with employee
+
+BASE SALARY BANDS (USD, Annual, Arlington VA Benchmark)
+Level   | Title                          | Min    | Mid    | Max    | Geo Diff
+--------|--------------------------------|--------|--------|--------|----------
+L1      | Associate Software Engineer    | $85K   | $100K  | $115K  | +/- 15%
+L2      | Software Engineer              | $110K  | $130K  | $150K  | +/- 15%
+L3      | Senior Software Engineer       | $145K  | $170K  | $195K  | +/- 15%
+L4      | Staff Software Engineer        | $185K  | $215K  | $245K  | +/- 10%
+L5      | Principal Software Engineer    | $230K  | $265K  | $300K  | +/- 10%
+L6      | Distinguished Engineer         | $280K  | $320K  | $360K  | +/- 10%
+L7      | Technical Fellow               | $340K  | $390K  | $440K  | +/- 5%
+--------|--------------------------------|--------|--------|--------|----------
+M1      | Engineering Manager            | $175K  | $205K  | $235K  | +/- 10%
+M2      | Senior Engineering Manager     | $215K  | $250K  | $285K  | +/- 10%
+M3      | Director of Engineering        | $260K  | $300K  | $340K  | +/- 10%
+M4      | VP Engineering                 | $320K  | $370K  | $420K  | +/- 5%
+
+GEOGRAPHIC DIFFERENTIALS (Applied to Base Only)
+Tier 1 (SF/NYC/Seattle): +15% | Tier 2 (Austin/Denver/Boston): +5%
+Tier 3 (Arlington/Atlanta/Chicago): Baseline | Tier 4 (Remote/Rural): -10%
+International: London +10%, Singapore +5%, Toronto -5% (vs. Arlington baseline)
+
+VARIABLE COMPENSATION — SALES
+Role                    | Base/Variable | OTE     | Quota       | Accelerators
+------------------------|---------------|---------|-------------|-------------
+SDR/BDR                 | 70/30         | $85K    | $400K ARR   | 1.5x > 120%
+Account Executive (SMB) | 50/50         | $180K   | $800K ARR   | 1.5x > 110%, 2x > 150%
+Account Executive (ENT) | 50/50         | $280K   | $1.5M ARR   | 1.5x > 110%, 2x > 140%
+Strategic AE (Named)    | 40/60         | $350K   | $3.0M ARR   | 1.5x > 110%, 2x > 130%
+Sales Engineer          | 75/25         | $200K   | Team-based  | 1.5x > 120%
+Customer Success Mgr    | 80/20         | $160K   | NRR 115%    | 1.5x > 125%
+Sales Management        | 60/40         | Variable| Team quota  | 1.5x > 110%
+
+Commission paid monthly on booked ARR (not recognized revenue)
+Clawback: 12-month clawback if customer churns < 365 days
+SPIFFs: Quarterly, max 10% of quarterly OTE, CRO approval required
+
+VARIABLE COMPENSATION — NON-SALES
+Annual Bonus Target (as % of base):
+- Individual Contributors (L1–L3): 10%
+- Senior ICs (L4–L5): 15%
+- Principal/Distinguished (L6–L7): 20%
+- Management (M1–M2): 20%
+- Directors (M3): 25%
+- VPs (M4): 30%
+- C-Suite: 50–100% (Board approved)
+
+Bonus Formula: Company Scorecard (60%) × Individual Rating (40%)
+Company Scorecard Components:
+  ARR Achievement (30%) | NRR (15%) | Operating Margin (15%) | Product Milestones (20%) | Strategic Initiatives (20%)
+
+Individual Rating Scale:
+  1 — Does Not Meet Expectations (0% multiplier)
+  2 — Partially Meets (50%)
+  3 — Meets Expectations (100%)
+  4 — Exceeds Expectations (150%)
+  5 — Significantly Exceeds (200%)
+
+Maximum payout capped at 200% of target (company × individual)
+
+EQUITY GRANTS (RSUs, 4-year quarterly vest, 1-year cliff)
+New Hire Grant Guidelines (Shares at 409A FMV):
+Level   | New Hire | Annual Refresh | Promotion | Spot/Retention
+--------|----------|----------------|-----------|---------------
+L1      | 2,500    | 800            | 1,200     | 500
+L2      | 5,000    | 1,500          | 2,500     | 1,000
+L3      | 12,000   | 3,500          | 6,000     | 2,000
+L4      | 25,000   | 7,000          | 12,000    | 4,000
+L5      | 45,000   | 12,000         | 20,000    | 7,000
+L6      | 70,000   | 18,000         | 30,000    | 10,000
+L7      | 100,000  | 25,000         | 40,000    | 15,000
+M1      | 15,000   | 4,500          | 7,500     | 2,500
+M2      | 30,000   | 9,000          | 15,000    | 5,000
+M3      | 55,000   | 16,000         | 25,000    | 8,000
+M4      | 100,000  | 30,000         | 50,000    | 15,000
+
+Refresh grants: Annual (March cycle), pro-rated for mid-year hires
+Promotion grants: Effective with title change, board consent required for M3+
+Spot grants: Max 1x/year per employee, CFO + CEO approval > $50K value
+Retention grants: Targeted, Board Comp Committee approval required
+
+BENEFITS VALUATION (Annual Cost to Company per Employee)
+Health/Medical: $18,500 | Dental/Vision: $1,800 | 401(k) Match: $6,200 (at 6%)
+HSA Contribution: $1,500 | Learning Stipend: $3,000 | Mental Health: $600
+Life/Disability: $400 | Commuter: $3,600 | Equipment: $2,500 (amortized)
+Total Benefits Value: ~$38,100/year (not included in OTE/cash comp)
+
+PAY EQUITY & COMPLIANCE
+- Annual pay equity analysis (gender, race/ethnicity, age) by third party
+- 2023 result: No statistically significant unexplained gaps (>5%)
+- State/local compliance: CA/CO/NY pay transparency postings maintained
+- Federal contractor: OFCCP AAP updated annually, VEVRAA/Section 503 compliant
+- Section 162(m): Deductibility limits monitored for covered employees
+
+OFF-CYCLE ADJUSTMENTS
+Market Adjustment: Data-driven, CFO + VP People approval, effective next pay period
+Promotion: Base + equity effective date of title change, retroactive if > 30 days
+Retention: Rare, documented business case, Board Comp Committee for > $100K total
+Cost of Living: Reviewed annually for high-inflation geos (>8% CYOY)
+
+COMMUNICATION TIMELINE
+- March 1: Merit/bonus/equity letters distributed via Workday
+- March 15: Manager calibration sessions complete
+- March 31: All adjustments effective in payroll
+- Quarterly: Equity vesting statements, ESPP enrollment windows
+- Annual: Total Rewards Statements (October), Benefits Open Enrollment (November)
+
+GOVERNANCE
+Compensation Committee (Board): Approves C-suite, M4, equity pool increases
+CFO + VP People: Approve all L5+, M3+, off-cycle > $25K, spot grants > $50K
+People Managers: Recommend within band, document business rationale
+HRBP: Validate market data, equity calibration, compliance review
+
+CONFIDENTIALITY
+This document contains proprietary compensation data. Unauthorized disclosure
+subject to disciplinary action up to termination. Do not share with candidates,
+external recruiters, or non-approved internal recipients.
+
+CONTACT: compensation@aegistech.com | Ext. 4200

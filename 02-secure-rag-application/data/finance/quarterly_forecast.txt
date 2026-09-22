@@ -1,0 +1,105 @@
+AEGIS TECHNOLOGIES — QUARTERLY FORECAST Q3 FY2024
+Prepared: July 15, 2024 | Version: Final
+Classification: Restricted — Leadership & Board Only
+Owner: FP&A | CFO Review: Complete
+
+EXECUTIVE SUMMARY
+Q3 FY2024 (Jul–Sep) projects $48.2M ARR, representing 28% YoY growth and 6% QoQ
+sequential growth. Gross margin stable at 78%. Operating loss narrowing to ($4.1M)
+from ($5.8M) in Q2 as GTM investments mature. Cash runway: 24 months at current
+burn ($18.4M cash + $25M undrawn revolver).
+
+KEY METRICS
+                        | Q2 FY24 Actual | Q3 FY24 Forecast | Q4 FY24 Plan
+------------------------|----------------|------------------|--------------
+ARR                     | $45.5M         | $48.2M           | $52.0M
+Net New ARR             | $3.2M          | $2.7M            | $3.8M
+Gross Revenue Retention | 94%            | 94%              | 95%
+Net Revenue Retention   | 112%           | 115%             | 118%
+Gross Margin            | 77.8%          | 78.0%            | 78.5%
+Sales & Marketing % Rev | 48%            | 46%              | 42%
+R&D % Revenue           | 32%            | 31%              | 30%
+G&A % Revenue           | 14%            | 13%              | 12%
+Operating Margin        | -12.7%         | -8.5%            | -4.2%
+Free Cash Flow          | ($3.1M)        | ($1.8M)          | $0.5M
+Headcount (EoP)         | 1,240          | 1,285            | 1,320
+
+REVENUE BUILD
+New Business (Hunters)      | $1.8M  | 8 deals @ $225K avg | Pipeline: $14.2M (3.2x coverage)
+Expansion (Farmers)         | $1.4M  | 22 accounts upsell  | NRR driven by Sentinel Pro → Enterprise
+Renewals                    | $42.6M | 94% GRR             | 45 contracts up, 3 at-risk (CS engaged)
+Professional Services       | $0.5M  | 3 implementations   | Declining mix (self-serve onboarding)
+--------------------------------|--------|-------------------|-----------------------------------
+Total Net New ARR             | $2.7M  |                   |
+
+PIPELINE HEALTH (as of Jul 10)
+Stage                    | Count | Value     | Weighted | Conv. Rate
+-------------------------|-------|-----------|----------|-----------
+Qualified Opportunity    | 42    | $14.2M    | $4.3M    | 22%
+Technical Evaluation     | 18    | $8.7M     | $3.5M    | 45%
+Contract Negotiation     | 8     | $4.1M     | $2.9M    | 70%
+Verbal Commit            | 3     | $1.8M     | $1.6M    | 90%
+-------------------------|-------|-----------|----------|-----------
+Total Pipeline                              | $28.8M   | $12.3M   |
+
+Top 5 Deals (Commit):
+1. Meridian Bank (FSI) — $680K | Legal review | Close: Aug 15
+2. Nova Health (HC) — $520K  | Security review | Close: Sep 5
+3. Apex Manufacturing (IND) — $450K | Procurement | Close: Aug 30
+4. Federal Agency (GOV) — $410K | Authority to Operate | Close: Sep 20
+5. Global Logistics (T&L) — $380K | Pilot→Enterprise | Close: Sep 10
+
+RISKS & OPPORTUNITIES
+Risks:
+- Federal deal (Deal #4): ATO timeline uncertainty, 30% probability of slip to Q4
+- EMEA hiring delay: 2 AE roles unfilled, $400K pipeline at risk
+- Collector v3 adoption: 15% of base on v2, migration pressure on CS
+
+Opportunities:
+- Sentinel AI Module GA (Aug 1): $2.1M pipeline, 60% attach rate in beta
+- Partner channel: 3 new MSSP partners ramping, $800K incremental potential
+- Price increase (10% on renewal): $1.3M ARR uplift if 80% acceptance
+
+EXPENSE WALK (QoQ)
+Category              | Q2 Actual | Q3 Forecast | Delta  | Notes
+----------------------|-----------|-------------|--------|--------------------------
+Sales & Marketing     | $5.5M     | $5.6M       | +$0.1M | Events (+$0.3M), hires offset by commission timing
+R&D                   | $3.7M     | $3.8M       | +$0.1M | 4 eng hires, cloud spend optimization (-$0.1M)
+G&A                   | $1.6M     | $1.5M       | -$0.1M | Legal settlement concluded
+Stock-Based Comp      | $2.1M     | $2.2M       | +$0.1M | Refresh grants (Aug)
+----------------------|-----------|-------------|--------|--------------------------
+Total OpEx            | $12.9M    | $13.1M      | +$0.2M |
+
+CASH FLOW & BALANCE SHEET
+Opening Cash (Jul 1)        | $18.4M
+Operating Cash Flow         | ($1.8M)
+CapEx (leasehold, HW)       | ($0.3M)
+Debt Service (revolver)     | ($0.1M)
+Equity Activity (ESPP)      | +$0.4M
+----------------------------|----------
+Closing Cash (Sep 30)       | $16.6M
+Undrawn Revolver            | $25.0M
+Total Liquidity             | $41.6M
+
+FY2024 FULL-YEAR OUTLOOK
+ARR: $52.0M (revised from $50.5M)
+Revenue: $49.8M (ASC 606)
+Operating Margin: -6.5% (improved from -8.0%)
+FCF: ($4.2M) for FY, breakeven Q1 FY25
+Cash EoY: $14.2M + $25M revolver = $39.2M liquidity
+
+SENSITIVITY ANALYSIS
+Scenario        | Net New ARR | FY ARR  | FCF     | Cash EoY
+----------------|-------------|---------|---------|----------
+Base Case       | $11.2M      | $52.0M  | ($4.2M) | $14.2M
+Upside (+20%)   | $13.4M      | $54.2M  | ($1.8M) | $16.6M
+Downside (-20%) | $9.0M       | $49.8M  | ($7.1M) | $11.3M
+Federal Slip    | $9.8M       | $50.6M  | ($5.5M) | $12.9M
+
+BOARD ACTION REQUESTED
+1. Approve Q3 operating plan ($13.1M OpEx budget)
+2. Authorize 5 additional AE hires (3 AMER, 2 EMEA) — $1.2M incremental FY cost
+3. Approve Sentinel AI Module pricing: $15/seat/mo add-on (Enterprise only)
+4. Note: No additional fundraising planned in FY2024
+
+DISTRIBUTION: CEO, CFO, CRO, CTO, VP Sales, VP Marketing, Board Observer

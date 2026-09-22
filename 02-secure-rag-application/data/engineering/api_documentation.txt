@@ -1,0 +1,117 @@
+AEGIS TECHNOLOGIES — API DOCUMENTATION
+Platform: Aegis Sentinel Threat Intelligence API
+Version: v2.4.1 | Last Updated: 2024-08-15
+Classification: Confidential — Partner/Integration Use Only
+Owner: Platform Engineering | Contact: api-support@aegistech.com
+
+BASE URL
+Production: https://api.sentinel.aegistech.com/v2
+Staging: https://api-staging.sentinel.aegistech.com/v2
+Sandbox: https://api-sandbox.sentinel.aegistech.com/v2
+
+AUTHENTICATION
+All requests require Bearer token (JWT) in Authorization header.
+Tokens issued via OAuth 2.0 Client Credentials flow:
+  POST /oauth/token
+  grant_type=client_credentials&scope=threat:intel:read threat:intel:write
+
+Token TTL: 1 hour | Refresh via same endpoint
+Rate limits enforced per client_id (see Rate Limiting)
+
+RATE LIMITING
+Tier          | Requests/min | Burst | Daily Quota
+--------------|--------------|-------|------------
+Free          | 60           | 10    | 10,000
+Professional  | 300          | 50    | 500,000
+Enterprise    | 1,200        | 200   | 5,000,000
+Custom        | Negotiated   | N/A   | Negotiated
+
+Headers returned: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+429 response includes Retry-After (seconds)
+
+ERROR HANDLING
+Standard RFC 7807 Problem Details format:
+{
+  "type": "https://api.aegistech.com/errors/rate-limited",
+  "title": "Rate Limit Exceeded",
+  "status": 429,
+  "detail": "Client exceeded 300 req/min limit",
+  "instance": "/v2/indicators/ip/192.0.2.1"
+}
+
+Common codes: 400 (validation), 401 (auth), 403 (scope), 404 (not found),
+429 (rate limit), 500 (server), 503 (maintenance)
+
+CORE ENDPOINTS
+
+INDICATORS
+GET    /indicators/ip/{ip}           — IP reputation, geolocation, tags
+GET    /indicators/domain/{domain}   — Domain reputation, subdomains, SSL
+GET    /indicators/hash/{hash}       — File hash (MD5/SHA1/SHA256) verdict
+GET    /indicators/url/{url}         — URL reputation, redirect chain
+POST   /indicators/batch             — Up to 500 indicators per request
+Query params: include_context=true|false, enrichment=basic|full
+
+THREAT ACTORS
+GET    /actors/{actor_id}            — TTPs, aliases, associated campaigns
+GET    /actors                       — List with filters: region, motivation, sophistication
+POST   /actors/search                — Advanced query (MITRE ATT&CK mapping)
+
+CAMPAIGNS
+GET    /campaigns/{campaign_id}      — Timeline, IOCs, victims, attribution
+GET    /campaigns                    — Filter by date, sector, actor
+POST   /campaigns/correlate          — Submit IOCs for campaign matching
+
+MALWARE FAMILIES
+GET    /malware/{family_id}          — Variants, C2 infrastructure, YARA rules
+GET    /malware                      — List with filters: platform, capability
+GET    /malware/{family_id}/yara     — Download YARA rule set (Enterprise only)
+
+VULNERABILITIES
+GET    /vulnerabilities/cve/{cve_id} — CVSS, exploit availability, patch status
+GET    /vulnerabilities              — Filter by severity, product, exploitability
+POST   /vulnerabilities/scan         — Submit SBOM for vulnerability mapping
+
+INTELLIGENCE REPORTS
+GET    /reports/{report_id}          — Full PDF/JSON, STIX bundle option
+GET    /reports                      — Filter by type, date, classification
+GET    /reports/latest               — Last 50 reports (Professional+)
+
+FEEDS (Enterprise only)
+GET    /feeds/indicators             — Real-time indicator stream (WebSocket)
+GET    /feeds/actors                 — Actor profile updates
+GET    /feeds/vulnerabilities        — CVE/KEV updates
+
+WEBHOOKS
+POST   /webhooks                     — Register callback URL
+Events: indicator.new, actor.updated, campaign.new, vulnerability.critical
+Secret rotation: POST /webhooks/{id}/rotate-secret
+
+SDKs & LIBRARIES
+Python: pip install aegis-sentinel-sdk (PyPI, MIT license)
+Go: go get github.com/aegistech/sentinel-go
+TypeScript: npm install @aegistech/sentinel-sdk
+All SDKs: Auto-retry, pagination helpers, type-safe responses
+
+VERSIONING & DEPRECATION
+- URL versioning (v2, v3) — major breaking changes only
+- Minor additions: new fields, endpoints — backward compatible
+- Deprecation notice: 12 months via email + Deprecation header
+- Sunset date communicated at deprecation announcement
+
+SLA (Enterprise Tier)
+- Availability: 99.9% monthly uptime
+- Latency: p95 < 200ms, p99 < 500ms (excluding auth)
+- Support: 24/7/365 via PagerDuty escalation, 15-min response Sev-1
+
+CHANGELOG (Recent)
+v2.4.1 (2024-08-15): Added /malware/{id}/yara endpoint, fixed CVE-2024-38123 reference
+v2.4.0 (2024-06-01): Webhook secret rotation, batch indicator limit 100→500
+v2.3.2 (2024-04-10): Rate limit headers standardized, added Retry-After on 429
+v2.3.0 (2024-02-15): Feeds GA, STIX 2.1 export for reports
+
+LEGAL
+Data sourced from Aegis proprietary sensors, open source, and trusted partners.
+Usage governed by Master Services Agreement and API Addendum.
+No redistribution of raw indicator data without written consent.
+Attribution required: "Data provided by Aegis Sentinel Threat Intelligence"

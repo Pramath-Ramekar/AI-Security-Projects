@@ -1,0 +1,149 @@
+AEGIS TECHNOLOGIES — ARCHITECTURE DECISION RECORDS (ADR) INDEX
+Maintained: Platform Engineering | Updated: 2024-08-20
+Classification: Confidential — Engineering Only
+Repository: github.aegistech.com/aegis/adr (private)
+
+ADR FORMAT (Markdown, MADR 3.0.0)
+- Title, Status (Proposed/Accepted/Deprecated/Superseded), Context, Decision, Consequences
+- Links to related ADRs, Jira epics, design docs, implementation PRs
+- Review: Architecture Review Board (ARB) monthly, 3-person quorum
+
+INDEX
+ADR-001: Microservices over Monolith (Accepted, 2019-03)
+  Context: Sentinel v1 monolith deployment risk, team scaling
+  Decision: Domain-driven bounded contexts, gRPC + REST, shared libraries minimal
+  Superseded by: ADR-042 (modular monolith for new domains)
+
+ADR-002: Kubernetes on AWS (EKS) (Accepted, 2019-06)
+  Decision: EKS managed control plane, self-managed node groups (Bottlerocket),
+  multi-AZ, cluster per environment (sandbox/staging/prod)
+  Related: ADR-015 (GCP for analytics), ADR-038 (multi-cloud strategy)
+
+ADR-003: Event-Driven Architecture (Kafka) (Accepted, 2019-09)
+  Decision: Confluent Cloud (dedicated), Avro schemas (Schema Registry),
+  topic naming: domain.entity.action (e.g., threat.indicator.created)
+  Retention: 7 days hot, 90 days cold (S3), exactly-once semantics
+
+ADR-004: PostgreSQL for Transactional Data (Accepted, 2019-10)
+  Decision: Aurora PostgreSQL (Multi-AZ), RLS for multi-tenancy,
+  logical replication for read replicas, pgBouncer pooling
+  Supersedes: ADR-001 (MongoDB for indicators — migrated 2021)
+
+ADR-005: ClickHouse for Analytics (Accepted, 2020-02)
+  Decision: ClickHouse Cloud (managed), MergeTree tables, materialized views,
+  3-year retention, tiered storage (S3), Apache Superset for BI
+
+ADR-006: GraphQL Federation (Apollo) (Accepted, 2020-05)
+  Decision: Federated graph (gateway + subgraphs), schema-first,
+  @key directives for entity resolution, @deprecated for evolution
+  Subgraphs: Indicators, Actors, Campaigns, Vulnerabilities, Reports
+
+ADR-007: Rust for Collector Fleet (Accepted, 2020-08)
+  Decision: Rust 1.70+ (MSRV policy: 6-month lag), no_std where possible,
+  cross-compilation for Linux/macOS/Windows, observability via OpenTelemetry
+  Rationale: Memory safety, performance, binary size, no runtime
+
+ADR-008: Python for Analytics Pipeline (Accepted, 2020-08)
+  Decision: Python 3.11+, Polars (not Pandas), DuckDB for local,
+  Dagster for orchestration, Great Expectations for data quality
+
+ADR-009: gRPC for Service-to-Service (Accepted, 2020-11)
+  Decision: Protocol Buffers v3, ConnectRPC (not grpc-go), unary + server streaming,
+  interceptors for auth/metrics/tracing, buf for schema management
+
+ADR-010: OpenTelemetry Native (Accepted, 2021-01)
+  Decision: OTel SDK in all services, Collector (DaemonSet + Sidecar),
+  W3C TraceContext, semantic conventions (v1.21+), sampling: tail-based
+
+ADR-011: GitOps with Argo CD (Accepted, 2021-03)
+  Decision: App-of-Apps pattern, Kustomize overlays per env,
+  sealed-secrets for Git-managed secrets, progressive delivery via Argo Rollouts
+
+ADR-012: Vault for Secrets (Accepted, 2021-04)
+  Decision: HashiCorp Vault (HA, Raft), Transit engine for encryption,
+  Dynamic secrets (DB, AWS, GCP), PKI engine for mTLS certs
+  Integration: External Secrets Operator → K8s, Vault Agent injector
+
+ADR-013: Multi-Tenancy Model (Accepted, 2021-06)
+  Decision: Shared infrastructure, logical isolation (RLS, namespaces, labels),
+  per-tenant encryption keys (Vault Transit), data residency via region pinning
+
+ADR-014: API Versioning Strategy (Accepted, 2021-08)
+  Decision: URL versioning (/v2/), header-based deprecation (Sunset, Deprecation),
+  12-month notice, backward-compatible additions only within version
+
+ADR-015: GCP for Analytics Workloads (Accepted, 2021-10)
+  Decision: BigQuery (customer-facing analytics), Dataflow (streaming),
+  Vertex AI (ML), separate from AWS production — data egress via Private Link
+
+ADR-016: Feature Flags (LaunchDarkly → Unleash) (Accepted, 2022-01)
+  Decision: Self-hosted Unleash (cost, data residency), server-side SDKs,
+  progressive rollout, kill switches, audit log, migration from LD complete 2022-Q3
+
+ADR-017: S3-Compatible Object Storage (MinIO on-prem, S3 cloud) (Accepted, 2022-03)
+  Decision: MinIO (Erasure coding, 4+2) for air-gapped, S3 for cloud,
+  lifecycle policies, versioning, cross-region replication for DR
+
+ADR-018: Database Migration Strategy (Accepted, 2022-05)
+  Decision: Atlas (declarative), versioned SQL, backward-compatible only,
+  expand/contract pattern, zero-downtime: add column → deploy → backfill → remove
+
+ADR-019: Incident Response Automation (Accepted, 2022-07)
+  Decision: Tines SOAR, playbooks as code (Git), Slack + PagerDuty triggers,
+  auto-containment for known patterns (malware, credential theft, crypto-mining)
+
+ADR-020: SBOM & Supply Chain (Accepted, 2022-09)
+  Decision: Syft (generate), Grype (scan), Cosign (sign), in-toto (attest),
+  SLSA Level 2 target (build provenance, hermetic builds), Rekor transparency log
+
+ADR-021: Customer Data Encryption (Accepted, 2023-01)
+  Decision: Per-tenant DEK (Vault Transit), KEK rotation quarterly,
+  envelope encryption, key hierarchy: Root → KEK → DEK → Data
+  Customer-managed keys (CMK) option for Enterprise tier
+
+ADR-022: Search Architecture (OpenSearch) (Accepted, 2023-03)
+  Decision: OpenSearch (managed), k-NN for vector search (embeddings),
+  index templates, ISM policies, cross-cluster search for multi-region
+
+ADR-023: Real-Time Collaboration (Yjs + WebRTC) (Accepted, 2023-05)
+  Decision: Yjs CRDT, WebRTC mesh (small groups), Hocuspocus server (large),
+  offline-first, conflict-free, persistence via y-websocket + IndexedDB
+
+ADR-024: AI/ML Platform (Accepted, 2023-08)
+  Decision: Vertex AI (managed), Kubeflow Pipelines (custom), Feast (feature store),
+  Model Registry (MLflow), drift detection (Evidently), A/B testing (GrowthBook)
+
+ADR-025: Zero Trust Network (Accepted, 2023-10)
+  Decision: Cloudflare Access + Tailscale, identity-aware proxy,
+  device posture checks (CrowdStrike ZTA), no VPN for most access
+
+ADR-026: Logging Standard (Accepted, 2024-01)
+  Decision: Structured JSON, mandatory fields: timestamp, level, trace_id, span_id,
+  service, environment, version, message; PII redaction at source (OTel processor)
+
+ADR-027: Rate Limiting Strategy (Accepted, 2024-03)
+  Decision: Token bucket (Redis), distributed (Envoy + Lua), per-tenant + per-IP,
+  headers: X-RateLimit-*, 429 with Retry-After, admin override via feature flag
+
+ADR-028: Modular Monolith for New Domains (Accepted, 2024-05)
+  Decision: Spring Modulith / Go packages with internal/ boundaries,
+  shared database (schemas), deploy as single unit, extract to microservice when
+  team autonomy or scaling demands it — replaces ADR-001 for new work
+
+ADR-029: WebAssembly for Edge Processing (Proposed, 2024-07)
+  Context: Collector v4 edge enrichment, sandboxed customer logic
+  Options: Wasmtime (Rust), Spin (Fermyon), custom
+  Decision pending: Security review (WASI preview 2), performance benchmarks
+
+ADR-030: Post-Quantum Cryptography Readiness (Proposed, 2024-08)
+  Context: NIST PQC standards (ML-KEM, ML-DSA, SLH-DSA), 2030 migration deadline
+  Decision: Hybrid KEM (X25519+ML-KEM) for TLS 1.3, inventory all crypto usage,
+  vendor readiness assessment, timeline: pilot 2025, production 2027
+
+ARCHITECTURE REVIEW BOARD
+Members: CTO (chair), VP Engineering, Distinguished Engineers (2), Security Architect,
+         Principal Engineers (rotating 2), Staff Engineer (rotating 1)
+Meeting: 1st Thursday monthly, 90 min, decisions recorded in ADR repo
+Escalation: CTO final authority, documented dissent preserved
+
+CONTACT: architecture@aegistech.com | Slack #architecture-review | Confluence: ADR Index

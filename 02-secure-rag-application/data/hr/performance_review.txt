@@ -1,0 +1,96 @@
+AEGIS TECHNOLOGIES — PERFORMANCE REVIEW GUIDELINES
+Effective: February 1, 2024 | Version: 2.0
+Classification: Internal — People Managers & Employees
+Owner: VP People Operations
+
+1. PURPOSE
+Provide consistent framework for performance evaluation, feedback delivery, and
+career development conversations across Aegis Technologies.
+
+2. REVIEW CYCLES
+- Mid-Year Check-In: September 1–30 (lightweight, forward-looking)
+- Annual Review: March 1–31 (comprehensive, compensation-linked)
+- New Hire: 90-day check-in (probationary), 6-month review (standard cycle entry)
+- Promotion: Off-cycle portfolio review (see Career Framework)
+
+3. EVALUATION DIMENSIONS (Weighted)
+Impact & Results (40%): Business outcomes, project delivery, metrics movement
+Technical/Functional Excellence (25%): Craft quality, innovation, best practices
+Collaboration & Influence (20%): Cross-functional work, mentorship, knowledge sharing
+Culture & Values Alignment (15%): Mission First, Intellectual Honesty, Continuous Mastery,
+                                  Trust by Design, Collective Accountability
+
+4. RATING SCALE (5-Point)
+1 — Does Not Meet Expectations
+   Consistently misses commitments, requires significant oversight, negative team impact
+   → Performance Improvement Plan (PIP) within 30 days
+
+2 — Partially Meets Expectations
+   Inconsistent delivery, some strengths but notable gaps, developing in role
+   → Focused development plan, monthly check-ins, re-evaluate in 6 months
+
+3 — Meets Expectations (Baseline)
+   Reliably delivers on commitments, solid craft, positive team contributor
+   → Standard merit increase, eligible for refresh equity
+
+4 — Exceeds Expectations
+   Consistently exceeds commitments, elevates others, drives improvements
+   → Accelerated merit, larger refresh, promotion conversation
+
+5 — Significantly Exceeds Expectations
+   Transformational impact, sets new standard, organization-wide influence
+   → Top-of-band merit, significant equity, fast-track promotion review
+
+5. CALIBRATION PROCESS
+- Manager writes draft reviews (evidence-based, specific examples)
+- Calibration sessions: VP People + HRBPs + functional VPs (2 days)
+- Forced distribution guidance (not mandate): ~10% / 20% / 40% / 20% / 10%
+- Bias checks: Recency, halo/horn, similarity, gender/race correlation analysis
+- Final ratings locked in Workday, compensation letters generated
+
+6. FEEDBACK DELIVERY
+- Preparation: Manager completes review ≥ 48 hrs before conversation
+- Conversation: 60–90 min, private, two-way dialogue, documented in Workday
+- Written summary: Shared within 24 hrs, employee acknowledges receipt
+- Disagreement: Employee may add written perspective (attached to review)
+- Follow-up: 30-day check-in on development commitments
+
+7. CAREER FRAMEWORK INTEGRATION
+- IC Track (L1–L7): Scope, complexity, influence, technical mastery
+- Management Track (M1–M4): Team size, org scope, business ownership, people development
+- Dual-track: Equivalent levels (L5≈M2, L6≈M3, L7≈M4) — movement both ways
+- Promotion criteria: Sustained performance at next level for 2+ review cycles
+- Portfolio review: Artifacts demonstrating next-level behaviors (design docs, RFCs,
+  incident leadership, mentorship outcomes, hiring contributions)
+
+8. PERFORMANCE IMPROVEMENT PLANS (PIP)
+- Trigger: Rating 1, or sustained 2 across 2+ cycles, or specific behavioral concern
+- Duration: 60–90 days, weekly check-ins, documented objectives & success criteria
+- Support: Assigned mentor, training resources, reduced scope if appropriate
+- Outcomes: Success (return to standard cycle), Extension (max 30 days), Separation
+- Legal/HR review required before PIP initiation
+
+9. DOCUMENTATION STANDARDS
+- Evidence: Specific, dated, observable behaviors (not personality traits)
+- STAR format: Situation, Task, Action, Result (quantified where possible)
+- Avoid: "Good job," "Needs improvement," subjective adjectives without examples
+- Include: Peer feedback (360 for M2+), project outcomes, incident contributions,
+  learning investments, hiring/interviewing, community participation
+
+10. TIMELINE (Annual Cycle)
+Jan 15: Self-reflection opens (optional, encouraged)
+Feb 1:  Peer feedback requests sent (360 for M2+, optional for IC)
+Feb 15: Peer feedback due
+Mar 1:  Manager draft reviews due
+Mar 1–15: Calibration sessions
+Mar 15–31: Review conversations conducted
+Apr 1:  Ratings locked, compensation letters generated
+Apr 15: Total Rewards Statements distributed
+
+11. TRAINING & RESOURCES
+- Manager training: "Effective Performance Conversations" (mandatory, annual)
+- Employee guide: "Making the Most of Your Review" (intranet)
+- Templates: Self-reflection, peer feedback, review write-up (Workday)
+- Calibration norms: Published annually, bias mitigation reminders
+
+CONTACT: performance@aegistech.com | HRBP Slack #people-operations | Ext. 4000

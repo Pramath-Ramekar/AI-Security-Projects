@@ -1,0 +1,18 @@
+QUERY: "Aegis Technologies" "salary" "equity" "bonus" "compensation" filetype:pdf OR filetype:txt OR filetype:docx
+QUERY: "Aegis Technologies" "quarterly forecast" "ARR" "revenue" "cash" "runway"
+QUERY: "Aegis Technologies" "incident response" "SEV-1" "runbook" "playbook"
+QUERY: "Aegis Technologies" "password policy" "MFA" "YubiKey" "Vault" "secrets"
+QUERY: "Aegis Technologies" "vendor risk" "Tier 1" "SOC 2" "penetration test"
+QUERY: "Aegis Technologies" "architecture decision" "ADR" "Kubernetes" "EKS" "Vault"
+QUERY: "Aegis Technologies" "API documentation" "Sentinel" "threat intelligence" "endpoints"
+QUERY: "Aegis Technologies" "deployment policy" "production" "canary" "rollback"
+QUERY: "Aegis Technologies" "employee handbook" "benefits" "leave" "remote work"
+QUERY: "Aegis Technologies" "data classification" "RESTRICTED" "CONFIDENTIAL" "PII"
+
+TARGET: Google, Bing, DuckDuckGo, GitHub, GitLab, Bitbucket, Confluence, Notion, SharePoint
+TOOL: Custom dorking script (Python + requests + BeautifulSoup)
+OUTPUT: Consolidated intelligence dossier
+DELIVERY: Encrypted ProtonMail to redacted@protonmail.com
+
+AUTOMATION: Schedule daily at 02:00 UTC, rotate user agents, use residential proxies
+OPSEC: No direct attribution to Aegis IP space, timing randomization ±30 min
