@@ -1,0 +1,96 @@
+AEGIS TECHNOLOGIES — DEPLOYMENT POLICY
+Effective: May 1, 2024 | Version: 5.0
+Classification: Internal — Engineering & Operations
+Owner: VP Engineering | Review: Quarterly
+
+1. PURPOSE
+Standardize safe, auditable, and reversible deployments across all Aegis Technologies
+production environments. Applies to: Sentinel Platform, Collector Fleet, Analytics Pipeline,
+Customer Portal, and all supporting microservices.
+
+2. ENVIRONMENTS
+Environment   | Purpose                    | Deploy Trigger          | Approval
+--------------|----------------------------|-------------------------|----------
+sandbox       | Developer ephemeral        | Any commit to feature/* | None (auto)
+staging       | Integration & QA           | Merge to develop        | Auto (CI gate)
+pre-prod      | Performance & security     | Tag rc-*                | Release Eng + Sec
+production    | Live customer traffic      | Tag v*                  | CTO + CISO sign-off
+
+3. DEPLOYMENT WINDOWS
+- Standard: Tuesday–Thursday, 10:00–16:00 ET (avoids Mon/Fri risk)
+- Emergency hotfix: Any time with CTO verbal + written confirmation within 1 hr
+- No deployments: Code freeze periods (Dec 15–Jan 5, major holiday weekends)
+- Blackout: First/last week of quarter (financial close), announced 30 days prior
+
+4. PRE-DEPLOYMENT REQUIREMENTS (All Environments)
+☐ All CI gates pass: unit, integration, contract, SAST, DAST, dependency scan
+☐ Container image signed (cosign) and verified in admission controller
+☐ SBOM generated (Syft) and uploaded to artifact registry
+☐ Database migrations: backward-compatible, tested on staging clone
+☐ Feature flags: New functionality default OFF, rollout plan documented
+☐ Runbook updated: Rollback steps, verification queries, on-call contacts
+☐ Security review: Threat model delta reviewed for architecture changes
+☐ Capacity review: CPU/memory/storage headroom ≥ 30% post-deploy
+
+5. PRODUCTION DEPLOYMENT CHECKLIST
+☐ Release ticket approved in Jira (REL-XXXX) with stakeholder sign-offs
+☐ Deployment window reserved in PagerDuty schedule
+☐ On-call engineer acknowledged and briefed
+☐ Customer notification sent (if user-facing change) ≥ 48 hrs prior
+☐ Canary deployment: 5% traffic for 30 min, error rate < 0.1%, p99 latency < baseline+10%
+☐ Progressive rollout: 25% → 50% → 100% at 15-min intervals, automated health checks
+☐ Smoke tests pass against production endpoints
+☐ Monitoring dashboards green: SLO burn rate < 2%, error budget > 80%
+☐ Rollback decision point documented at each stage
+
+6. ROLLBACK PROCEDURES
+- Automated: Argo Rollouts manages canary analysis, auto-rollback on SLO breach
+- Manual: `kubectl rollout undo deployment/<svc> -n production` (< 2 min target)
+- Database: Migration rollback scripts versioned, tested in pre-prod
+- Data: Point-in-time recovery (RPO 5 min, RTO 15 min) via CloudSQL/Redis
+- Post-rollback: Incident declared, RCA within 5 business days
+
+7. CHANGE MANAGEMENT
+- Standard Change: Pre-approved, low-risk (config, dependency patch) — auto-deploy
+- Normal Change: Requires CAB review (weekly Tue 10:00 ET), documented risk assessment
+- Emergency Change: CTO/CISO verbal approval, retrospective CAB within 48 hrs
+- All changes tracked in ServiceNow with linked Git commit, PR, and test results
+
+8. SECRETS & CONFIGURATION
+- Secrets: External Secrets Operator → HashiCorp Vault, never in Git/ConfigMaps
+- Config: ConfigMaps for non-sensitive, versioned with app deployment
+- Rotation: TLS certs (90 days), DB passwords (180 days), API keys (365 days)
+- Emergency rotation: `vault kv rotate` + rolling restart, < 30 min target
+
+9. OBSERVABILITY REQUIREMENTS (Per Service)
+- Metrics: RED (Rate, Errors, Duration) + USE (Utilization, Saturation, Errors)
+- Logs: Structured JSON, correlation IDs, PII redaction at source
+- Traces: 100% sampling for errors, 10% for success, W3C TraceContext
+- Alerts: Symptom-based (not cause-based), runbook-linked, tiered escalation
+
+10. DISASTER RECOVERY
+- RPO: 5 min (DB), 1 hr (object storage), 0 (config — GitOps)
+- RTO: 30 min (single region), 4 hr (multi-region failover)
+- DR drill: Quarterly, unannounced, results reported to Board Risk Committee
+- Backup validation: Monthly restore test, automated verification
+
+11. COMPLIANCE & AUDIT
+- All deployments logged to immutable audit trail (Cloud Audit Logs → BigQuery)
+- SOC 2 Type II: Deployment controls tested annually by external auditor
+- FedRAMP: Pre-prod and prod deployment pipelines separately authorized
+- Evidence retention: 7 years (deployment manifests, approvals, test results)
+
+12. INCIDENT INTEGRATION
+- Deployment-related incidents: Tag `deployment-related=true` in PagerDuty
+- Post-incident: Deployment process changes tracked as action items
+- Blameless culture: Focus on systemic gaps, not individual error
+
+CONTACTS
+Release Engineering: release-eng@aegistech.com | Slack #release-engineering
+Platform On-Call: PagerDuty "platform-primary" | Escalation: "platform-secondary"
+Security Review: sec-review@aegistech.com | SLA: 2 business days
+
+REFERENCES
+- Runbook Template: confluence.aegistech.com/runbook-template
+- Deployment Dashboard: grafana.aegistech.com/d/deployments
+- Change Calendar: calendar.aegistech.com/deployments

@@ -1,0 +1,114 @@
+AEGIS TECHNOLOGIES — TRAVEL & EXPENSE POLICY
+Effective: April 1, 2024 | Version: 2.2
+Classification: Internal — All Personnel
+Owner: Controller | Review: Annual
+
+1. PURPOSE
+Establish clear guidelines for business travel, expense reimbursement, and corporate
+card usage to ensure responsible spending, compliance, and audit readiness.
+
+2. GENERAL PRINCIPLES
+- Spend company money as if it were your own
+- Prioritize virtual meetings; travel only when in-person drives clear business outcome
+- Book early, choose cost-effective options, submit expenses within 5 business days
+- Receipts required for all expenses ≥ $25 (digital photos accepted via Expensify/Concur)
+- Non-reimbursable: Alcohol (except hosted customer dinners, max 2 drinks/person),
+  personal entertainment, fines/penalties, political contributions, gifts > $150
+
+3. TRAVEL AUTHORIZATION
+- Domestic: Manager approval via Concur (pre-trip), auto-approved ≤ $2,000
+- International: Director+ approval, CISO notification for high-risk countries
+- Customer-facing: Pre-approved via opportunity record (Salesforce), no separate request
+- Conferences: VP approval if > $3,000 total cost, speaking slots = auto-approved
+- Emergency: Verbal approval + Concur within 24 hrs
+
+4. TRANSPORTATION
+Air:
+- Domestic: Economy/Coach (Comfort+/Main Cabin Extra allowed for flights > 4 hrs)
+- International: Premium Economy (flights > 8 hrs), Business (flights > 12 hrs or red-eye)
+- Upgrades: Personal funds/miles only, no company reimbursement
+- Baggage: 1 checked bag reimbursed, 2nd if trip > 7 days
+- Booking: Concur Travel (preferred), 14-day advance purchase target
+- Changes/Cancellations: Change fees reimbursed if business-driven
+
+Ground:
+- Rideshare/Taxi: Standard (UberX/Lyft), Black/XL only if 3+ passengers or late night (10pm–6am)
+- Rental Car: Compact/Intermediate, insurance via corporate card (decline rental co. coverage)
+- Parking: Airport (economy), hotel, client site — receipts required
+- Public Transit: Encouraged, fully reimbursed (receipt or card tap record)
+- Mileage: $0.67/mi (IRS 2024 rate) for personal vehicle, log required (date, purpose, miles)
+
+5. LODGING
+- Standard: Business-class hotels (Marriott, Hilton, Hyatt, IHG brands), ≤ $300/night (major metros)
+- High-cost cities (NYC, SF, DC, London, Singapore): ≤ $400/night with Director approval
+- Conference hotels: Contracted rate honored even if above cap
+- Extended stay (> 14 nights): Corporate housing / extended-stay preferred (cost savings)
+- Loyalty: Personal accounts allowed, points accrue to employee
+- Incidentals: Personal charges (minibar, movies, spa) not reimbursed
+
+6. MEALS & ENTERTAINMENT
+Per Diem (GSA rates, no receipts needed for ≤ per diem):
+- Continental US: $59–$79/day (by location) — Breakfast $15, Lunch $18, Dinner $26, Incidental $5
+- OCONUS: GSA foreign rates apply
+- Receipt required if actuals > per diem (itemized, attendees, business purpose)
+
+Customer/Prospect Meals:
+- Business purpose documented (deal name, attendees, topics discussed)
+- Limit: $150/person (food + beverage), alcohol ≤ 2 drinks/person
+- Host: Most senior Aegis attendee pays (corporate card)
+- Reciprocal: If vendor hosts, document and reciprocate within 90 days
+
+Team Meals:
+- Team building: $75/person quarterly (manager corporate card)
+- Celebration: $50/person (project launch, milestone, holiday)
+- Remote team meetup: $100/person/day (semi-annual, Director approval)
+
+7. CORPORATE CARD (Issued to: Directors+, Sales, CS, Procurement, Travel Coordinators)
+- Personal use: Strictly prohibited (immediate revocation + repayment)
+- Monthly reconciliation: Required by 5th business day (Concur)
+- Lost/Stolen: Call bank immediately + notify Controller (24/7 line on back of card)
+- Limits: Default $10K/mo, temporary increases via Controller (business justification)
+- International: No foreign transaction fees, notify bank of travel dates
+
+8. SPECIAL CATEGORIES
+Training/Conferences:
+- Registration: Pre-approved, early-bird pricing targeted
+- Materials: Books, courses, certifications — $3,000/yr cap (see Learning Policy)
+- Travel: Covered per this policy
+
+Home Office / Remote Work:
+- Equipment: Covered by Remote Work Policy (not T&E)
+- Internet: $100/mo reimbursement (Remote Work Policy)
+- Co-working: $500/mo cap (Remote Work Policy)
+
+Relocation:
+- Policy separate (Relocation Policy POL-HR-015), VP People + CFO approval
+- Temporary housing: 30 days max, then permanent housing expected
+
+9. EXPENSE SUBMISSION & REIMBURSEMENT
+- Deadline: 5 business days post-trip / post-purchase
+- Concur: All expenses (receipts attached, attendees tagged, business purpose)
+- Approval chain: Employee → Manager → Controller (auto > $500) → Finance
+- Reimbursement: ACH within 10 business days of approval (payroll cycle)
+- Corporate card: Paid directly by company, employee reconciles (no OOP)
+
+10. AUDIT & COMPLIANCE
+- Monthly: Controller reviews 100% of expenses > $500, 20% random sample
+- Quarterly: External audit sample (Big 4), findings reported to Audit Committee
+- Violations: First = warning + repayment, Second = card suspension, Third = termination
+- IRS Accountable Plan: All reimbursements qualify (business connection, substantiation,
+  return of excess within 120 days) — no taxable income to employee
+
+11. INTERNATIONAL CONSIDERATIONS
+- Visa: HR/Immigration coordinates (lead time 8–12 weeks)
+- Health: International SOS membership (all travelers), vaccinations reimbursed
+- Security: CISO briefing for high-risk, tracking app (Sitata) required
+- Currency: Corporate card preferred, cash advance rare (Controller approval, receipts)
+- Tax: Track days by jurisdiction (183-day rule), HR monitors
+
+12. EXCEPTIONS
+- Medical/Accessibility: HR accommodates (no approval chain, documented)
+- Executive: C-suite travel per employment agreement (Controller still audits)
+- Crisis/Emergency: CFO authorization, retrospective documentation within 5 days
+
+CONTACT: travel-expenses@aegistech.com | Concur Support: concur-support@aegistech.com | Ext. 4400

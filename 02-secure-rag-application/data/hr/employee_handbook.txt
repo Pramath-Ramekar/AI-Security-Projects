@@ -1,0 +1,81 @@
+AEGIS TECHNOLOGIES — EMPLOYEE HANDBOOK
+Effective: March 15, 2024 | Version: 4.1
+Classification: Internal — All Employees
+
+WELCOME TO AEGIS TECHNOLOGIES
+Founded in 2008, Aegis Technologies provides advanced cybersecurity solutions,
+threat intelligence platforms, and managed security services to Fortune 500
+enterprises and government agencies across North America and EMEA.
+
+Headquarters: 4200 Innovation Drive, Suite 800, Arlington, VA 22203
+Satellite Offices: Austin TX, London UK, Singapore, Toronto CA
+Employee Count: ~1,240 (as of Q1 2024)
+
+OUR MISSION
+To defend the digital infrastructure that powers modern society through
+relentless innovation, operational excellence, and unwavering integrity.
+
+OUR VALUES
+1. MISSION FIRST — Customer security outcomes drive every decision
+2. INTELLECTUAL HONESTY — We surface hard truths, even when uncomfortable
+3. CONTINUOUS MASTERY — We invest 10% of work time in skill development
+4. TRUST BY DESIGN — Security and privacy are engineered in, not bolted on
+5. COLLECTIVE ACCOUNTABILITY — We win together, we own failures together
+
+EMPLOYMENT CLASSIFICATIONS
+- Regular Full-Time (RFT): ≥ 37.5 hrs/week, benefits-eligible Day 1
+- Regular Part-Time (RPT): 20–37.5 hrs/week, pro-rated benefits
+- Fixed-Term Contract (FTC): Project-based, max 24 months
+- Intern/Co-op: Academic partnership programs, 10–12 weeks
+
+WORK HOURS & FLEXIBILITY
+- Core hours: 10:00–15:00 local time, Monday–Friday
+- Flexible start: 07:00–10:00 | Flexible end: 15:00–19:00
+- Remote work: Up to 3 days/week (team-dependent, manager approval)
+- "Focus Fridays": No-meeting blocks 09:00–13:00 for deep work
+
+COMPENSATION PHILOSOPHY
+- Target 65th percentile of relevant market (Radford/Levels.fyi benchmarks)
+- Annual merit cycle: Effective March 1, retroactive to Jan 1
+- Equity refresh: Annual grants vesting 4-year quarterly
+- Spot bonuses: Up to 5% base for exceptional contributions
+
+BENEFITS OVERVIEW
+- Health: 3 medical plans (PPO, HDHP/HSA, Kaiser), 100% employee premium paid
+- Dental/Vision: 100% premium paid for employee + dependents
+- 401(k): 6% automatic match, immediate vesting, Roth option
+- HSA: Company contributes $1,500/yr (individual) / $3,000 (family)
+- Mental Health: 12 free therapy sessions/yr via Lyra, Crisis Text Line
+- Learning: $3,000/yr tuition reimbursement, O'Reilly/Pluralsight access
+- Parental: 16/4 weeks paid (see Leave Policy), $500 "welcome baby" stipend
+- Commuter: $300/mo pre-tax transit/parking, EV charging on-site
+
+CODE OF CONDUCT
+- Zero tolerance: Harassment, discrimination, retaliation, workplace violence
+- Conflicts of interest: Disclose via Ethics Portal within 5 business days
+- Outside employment: Requires CISO approval for security-related work
+- Gifts/Entertainment: ≤ $150 value, pre-approval > $75
+- Political activity: No use of company resources, no implication of endorsement
+
+INFORMATION SECURITY
+- All employees complete SecAware training within 30 days of hire, annually thereafter
+- Clean desk policy: Lock screens (Win+L / Cmd+Ctrl+Q), secure physical media
+- Phishing simulations: Monthly, failure = mandatory remediation (not punitive)
+- Lost device: Report to IT Security within 1 hour via Slack #security-incidents
+- Classification: Public / Internal / Confidential / Restricted — handle accordingly
+
+PERFORMANCE & DEVELOPMENT
+- Quarterly OKRs: Set in Workday, reviewed at Q+1 midpoint
+- Career frameworks: IC (L1–L7) and Management (M1–M4) tracks
+- Promotion cycles: Semi-annual (March/September), portfolio-based review
+- Mentorship: Formal program matches L3+ with L1–L2, 6-month cycles
+
+SEPARATION
+- Voluntary resignation: 2 weeks notice standard, 4 weeks for Director+
+- Involuntary: Severance = 2 weeks base per year of service (min 4, max 26)
+- COBRA: Company subsidizes 50% for 3 months post-separation
+- Alumni network: Lifetime access to job board, quarterly events
+
+POLICY ACKNOWLEDGMENT
+All employees must acknowledge receipt and understanding annually via Workday.
+Questions: people-ops@aegistech.com | Slack #people-ops | Ext. 4000

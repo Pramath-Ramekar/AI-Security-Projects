@@ -1,0 +1,116 @@
+AEGIS TECHNOLOGIES — INCIDENT POSTMORTEM TEMPLATE
+Version: 2.1 | Owner: Security Operations | Classification: Confidential
+Repository: github.aegistech.com/aegis/runbooks (private)
+
+INCIDENT METADATA
+Incident ID: SEC-INC-XXXX
+SEV Level: SEV-1 / SEV-2 / SEV-3 / SEV-4
+Title: [Concise, descriptive — e.g., "Credential Stuffing Attack on Customer Portal"]
+Status: Active / Contained / Eradicated / Recovered / Closed
+Incident Commander: [Name, Slack handle]
+Start Time (UTC): [ISO 8601 — when attack began, not when detected]
+Detection Time (UTC): [When alert fired / report received]
+Acknowledgment Time (UTC): [When analyst picked up]
+Containment Time (UTC): [When threat actor access stopped]
+Eradication Time (UTC): [When artifacts removed, root cause fixed]
+Recovery Time (UTC): [When service restored to SLO]
+Closure Time (UTC): [When postmortem approved]
+Duration: [Total hours:minutes from start to recovery]
+
+AFFECTED SYSTEMS & DATA
+- System/Service: [Name, environment, criticality]
+- Data Classification: [Public / Internal / Confidential / Restricted]
+- Records Affected: [Count, types — PII, credentials, intellectual property]
+- Customer Impact: [Number of tenants, specific names if < 5, "all" if broad]
+- Revenue Impact: [Estimated ARR at risk, SLA credits triggered]
+
+TIMELINE (Chronological, UTC)
+[ISO 8601] — [Event: detection, action, decision, communication, milestone]
+[ISO 8601] — [Event]
+[ISO 8601] — [Event]
+... (include all significant events, no minor routine actions)
+
+ROOT CAUSE ANALYSIS
+Primary Root Cause: [Single sentence — the "why" that if fixed prevents recurrence]
+Contributing Factors (5 Whys):
+  1. [Why did the primary cause occur?]
+  2. [Why was that condition present?]
+  3. [Why was the control missing/ineffective?]
+  4. [Why was the gap not detected earlier?]
+  5. [Systemic organizational/process gap?]
+MITRE ATT&CK Mapping: [Tactic(s) + Technique(s) with IDs — e.g., T1110.004 Credential Stuffing]
+
+WHAT WENT WELL
+- [Specific action/decision/tool/process that worked — be concrete]
+- [Example: "EDR auto-isolation triggered within 30 seconds of malware execution"]
+- [Example: "On-call engineer recognized pattern from Q1 tabletop exercise"]
+
+WHAT DID NOT GO WELL
+- [Specific gap/failure/delay — no blame, focus on system/process]
+- [Example: "SIEM rule for failed login threshold not tuned for distributed attack"]
+- [Example: "Runbook PB-IR-002 referenced deprecated Slack channel #incident-bec"]
+
+ACTION ITEMS (Tracked in Jira: SEC-AI-XXXX)
+ID | Description | Owner | Due Date | Priority | Status
+---|-------------|-------|----------|----------|-------
+SEC-AI-XXXX | [Specific, measurable, achievable] | [Name] | [YYYY-MM-DD] | P0/P1/P2 | Open
+SEC-AI-XXXX | [E.g., "Deploy SIEM rule for distributed credential stuffing detection"] | [Name] | [Date] | P0 | Open
+SEC-AI-XXXX | [E.g., "Update PB-IR-002 with current communication channels"] | [Name] | [Date] | P1 | Open
+SEC-AI-XXXX | [E.g., "Rotate all service account keys in affected namespace"] | [Name] | [Date] | P0 | In Progress
+SEC-AI-XXXX | [E.g., "Conduct purple team exercise for credential stuffing scenario"] | [Name] | [Date] | P2 | Open
+
+DETECTION GAP ANALYSIS
+- Could we have detected earlier? [Yes/No/Partially]
+- If yes: What detection logic was missing? [Specific rule, data source, correlation]
+- If no: What would need to change? [New telemetry, new tool, architecture change]
+- Detection Coverage: [MITRE techniques with / without detection rules]
+
+CUSTOMER COMMUNICATION LOG
+- Internal stakeholder notification: [Time, channel, audience]
+- Customer notification (if applicable): [Time, channel, template used, approvals]
+- Regulatory notification (if applicable): [Authority, time, reference number]
+- Status page updates: [Times, messages]
+- Public statement (if applicable): [Time, channel, key messages]
+
+EVIDENCE PRESERVATION
+- Disk images: [Location, hash (SHA256), custodian]
+- Memory captures: [Location, hash, tool used]
+- Log exports: [SIEM query, time range, export format, location]
+- Network captures: [PCAP location, filter, hash]
+- Chain of custody log: [ServiceNow attachment REF-XXXX]
+
+LEGAL & COMPLIANCE
+- Legal hold activated: [Yes/No, time, GC approval]
+- Regulatory obligations assessed: [GDPR 72hr, CCPA, SEC 4-day, state breach laws]
+- Outside counsel engaged: [Firm, attorney, time]
+- Law enforcement notification: [Agency, case number, time, liaison]
+- Insurance notification: [Carrier, claim number, time]
+
+METRICS
+MTTA (Mean Time to Acknowledge): [minutes]
+MTTC (Mean Time to Contain): [hours:minutes]
+MTTR (Mean Time to Recover): [hours:minutes]
+Analyst hours invested: [Total]
+Tools/queries used: [List key ones for future reference]
+
+APPROVALS
+Incident Commander: [Name, signature, date]
+Security Director: [Name, signature, date]
+CISO: [Name, signature, date] (required for SEV-1/2)
+Legal: [Name, signature, date] (required for SEV-1/2 or customer data)
+Executive Sponsor: [Name, signature, date] (required for SEV-1)
+
+DISTRIBUTION
+- Security Team (all)
+- Engineering Leadership (affected services)
+- Legal / Compliance
+- Executive Leadership (SEV-1/2)
+- Board Risk Committee (SEV-1 only)
+- Customer Success (if customer-facing)
+
+TEMPLATE VERSION CONTROL
+v2.1 (2024-08): Added detection gap analysis, customer communication log, evidence hashes
+v2.0 (2024-03): Added MITRE mapping, action item table, metric fields
+v1.0 (2022-01): Initial version
+
+CONTACT: ir-postmortems@aegistech.com | Slack #incident-postmortems

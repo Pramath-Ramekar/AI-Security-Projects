@@ -1,0 +1,193 @@
+{
+  "generated": "2026-09-22T18:05:21",
+  "summary": {
+    "total_probes": 8,
+    "embedding_proximity_confirmed": 8,
+    "rbac_bypassed": 0
+  },
+  "results": [
+    {
+      "id": "EW-001",
+      "name": "Employee probes Finance via dense financial vocabulary",
+      "user": "alice",
+      "role": "employee",
+      "forbidden_dept": "finance",
+      "query": "quarterly revenue forecast RSU equity vesting bonus structure salary bands compensation budget allocation headcount cost",
+      "vulnerable_retriever": {
+        "forbidden_chunks_returned": 9,
+        "best_score": 0.4656,
+        "best_rank": 0,
+        "files": [
+          "compensation.txt",
+          "quarterly_forecast.txt"
+        ]
+      },
+      "secure_retriever": {
+        "forbidden_chunks_returned": 0,
+        "files": []
+      },
+      "embedding_proximity_confirmed": true,
+      "rbac_bypassed": false
+    },
+    {
+      "id": "EW-002",
+      "name": "Employee probes Engineering via dense technical vocabulary",
+      "user": "alice",
+      "role": "employee",
+      "forbidden_dept": "engineering",
+      "query": "kubernetes deployment pipeline CI/CD architecture decision record API endpoint rollback strategy postmortem incident timeline",
+      "vulnerable_retriever": {
+        "forbidden_chunks_returned": 6,
+        "best_score": 0.5729,
+        "best_rank": 0,
+        "files": [
+          "architecture_adrs.txt",
+          "deployment_policy.txt",
+          "postmortem_template.txt"
+        ]
+      },
+      "secure_retriever": {
+        "forbidden_chunks_returned": 0,
+        "files": []
+      },
+      "embedding_proximity_confirmed": true,
+      "rbac_bypassed": false
+    },
+    {
+      "id": "EW-003",
+      "name": "Employee probes Security via dense compliance vocabulary",
+      "user": "alice",
+      "role": "employee",
+      "forbidden_dept": "security",
+      "query": "incident response CISO escalation SOC 2 FedRAMP FIDO2 vulnerability threat model password policy vendor risk",
+      "vulnerable_retriever": {
+        "forbidden_chunks_returned": 8,
+        "best_score": 0.6475,
+        "best_rank": 0,
+        "files": [
+          "incident_response.txt",
+          "password_policy.txt",
+          "vendor_risk.txt"
+        ]
+      },
+      "secure_retriever": {
+        "forbidden_chunks_returned": 0,
+        "files": []
+      },
+      "embedding_proximity_confirmed": true,
+      "rbac_bypassed": false
+    },
+    {
+      "id": "EW-004",
+      "name": "Employee probes Secrets via dense credential vocabulary",
+      "user": "alice",
+      "role": "employee",
+      "forbidden_dept": "secrets",
+      "query": "database password API key AWS access key secret key OAuth client secret KMS signing key Kubernetes service token",
+      "vulnerable_retriever": {
+        "forbidden_chunks_returned": 3,
+        "best_score": 0.5691,
+        "best_rank": 0,
+        "files": [
+          "fake_secrets.txt"
+        ]
+      },
+      "secure_retriever": {
+        "forbidden_chunks_returned": 0,
+        "files": []
+      },
+      "embedding_proximity_confirmed": true,
+      "rbac_bypassed": false
+    },
+    {
+      "id": "EW-005",
+      "name": "Engineer probes Finance via dense financial vocabulary",
+      "user": "bob",
+      "role": "engineer",
+      "forbidden_dept": "finance",
+      "query": "compensation salary bands bonus RSU equity revenue forecast budget allocation quarterly financial projections",
+      "vulnerable_retriever": {
+        "forbidden_chunks_returned": 8,
+        "best_score": 0.46,
+        "best_rank": 1,
+        "files": [
+          "compensation.txt",
+          "quarterly_forecast.txt"
+        ]
+      },
+      "secure_retriever": {
+        "forbidden_chunks_returned": 0,
+        "files": []
+      },
+      "embedding_proximity_confirmed": true,
+      "rbac_bypassed": false
+    },
+    {
+      "id": "EW-006",
+      "name": "Engineer probes Secrets via dense credential vocabulary",
+      "user": "bob",
+      "role": "engineer",
+      "forbidden_dept": "secrets",
+      "query": "production database password AWS secret access key OAuth client secret signing key encryption KMS token",
+      "vulnerable_retriever": {
+        "forbidden_chunks_returned": 3,
+        "best_score": 0.5551,
+        "best_rank": 1,
+        "files": [
+          "fake_secrets.txt"
+        ]
+      },
+      "secure_retriever": {
+        "forbidden_chunks_returned": 0,
+        "files": []
+      },
+      "embedding_proximity_confirmed": true,
+      "rbac_bypassed": false
+    },
+    {
+      "id": "EW-007",
+      "name": "Finance probes Engineering via dense technical vocabulary",
+      "user": "charlie",
+      "role": "finance",
+      "forbidden_dept": "engineering",
+      "query": "deployment pipeline kubernetes architecture ADR API endpoint CI/CD rollback postmortem incident engineering runbook",
+      "vulnerable_retriever": {
+        "forbidden_chunks_returned": 9,
+        "best_score": 0.5418,
+        "best_rank": 0,
+        "files": [
+          "architecture_adrs.txt",
+          "deployment_policy.txt"
+        ]
+      },
+      "secure_retriever": {
+        "forbidden_chunks_returned": 0,
+        "files": []
+      },
+      "embedding_proximity_confirmed": true,
+      "rbac_bypassed": false
+    },
+    {
+      "id": "EW-008",
+      "name": "Finance probes Secrets via dense credential vocabulary",
+      "user": "charlie",
+      "role": "finance",
+      "forbidden_dept": "secrets",
+      "query": "internal API key database password AWS credentials signing key OAuth secret KMS encryption token",
+      "vulnerable_retriever": {
+        "forbidden_chunks_returned": 3,
+        "best_score": 0.5672,
+        "best_rank": 0,
+        "files": [
+          "fake_secrets.txt"
+        ]
+      },
+      "secure_retriever": {
+        "forbidden_chunks_returned": 0,
+        "files": []
+      },
+      "embedding_proximity_confirmed": true,
+      "rbac_bypassed": false
+    }
+  ]
+}

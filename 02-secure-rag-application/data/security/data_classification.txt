@@ -1,0 +1,136 @@
+AEGIS TECHNOLOGIES — DATA CLASSIFICATION & HANDLING POLICY
+Effective: March 1, 2024 | Version: 2.5
+Classification: Internal — All Personnel
+Owner: CISO | Review: Annual | Compliance: SOC 2, ISO 27001, FedRAMP, GDPR
+
+1. PURPOSE
+Establish a unified framework for classifying, labeling, handling, storing, transmitting,
+and disposing of Aegis Technologies information assets based on sensitivity and
+regulatory requirements.
+
+2. CLASSIFICATION LEVELS
+
+PUBLIC (Green)
+- Definition: Information approved for unrestricted external distribution
+- Examples: Marketing materials, press releases, published blog posts, job postings,
+  API documentation (public endpoints), security advisories (post-disclosure)
+- Handling: No encryption required, share freely, publish on public websites
+- Retention: Per marketing/legal schedule
+
+INTERNAL (Blue)
+- Definition: Information for internal use only, not for external disclosure
+- Examples: Employee directory, org charts, internal policies, meeting notes,
+  project status, non-sensitive code, internal tooling documentation
+- Handling: Encrypt in transit (TLS 1.2+), encrypt at rest (AES-256), access via SSO
+- Sharing: Okta groups, Google Drive (restricted to aegistech.com), Slack (internal channels)
+- Retention: 7 years default, per department schedule
+
+CONFIDENTIAL (Yellow)
+- Definition: Sensitive business information, disclosure could cause material harm
+- Examples: Financial forecasts, customer lists, contract terms, pricing, roadmaps,
+  source code (proprietary), vulnerability details (pre-disclosure), penetration test results
+- Handling: Encrypt in transit (TLS 1.3), encrypt at rest (AES-256, customer-managed keys),
+  DLP rules enforced, watermarking on documents, access logging required
+- Sharing: Approved recipients only, NDAs required for external, encrypted email (Virtru),
+  virtual data rooms for due diligence
+- Retention: 10 years, legal hold overrides
+
+RESTRICTED (Red)
+- Definition: Highest sensitivity, disclosure could cause severe harm, legal liability,
+  or regulatory violation
+- Examples: Customer PII/PHI, encryption keys, authentication secrets, source code (crypto),
+  incident evidence, executive communications, M&A materials, Board packages,
+  authentication tokens, API keys, database dumps
+- Handling: Encrypt in transit (TLS 1.3, mutual TLS where possible), encrypt at rest
+  (AES-256, HSM-backed keys), hardware security modules for keys, air-gapped backups,
+  access via PAW only, session recording, dual-authorization for export
+- Sharing: Need-to-know only, CISO approval for external, legal review mandatory,
+  classified document control (numbered, tracked, signed receipt)
+- Retention: Per regulatory requirement (min 7 years), secure destruction certified
+
+3. LABELING REQUIREMENTS
+- Documents: Classification in header/footer (e.g., "CONFIDENTIAL — Aegis Technologies")
+- Emails: Sensitivity label applied (Outlook/Google add-in), auto-enforced by DLP
+- Files: Metadata tag (extended attributes), SharePoint/Drive labels
+- Code: // CLASSIFICATION: CONFIDENTIAL comment at top of proprietary files
+- Physical: Color-coded folders, locked cabinets, visitor escort
+
+4. HANDLING BY LIFECYCLE STAGE
+
+CREATION
+- Classify at creation (author responsibility, default INTERNAL if unsure)
+- DLP auto-classification for known patterns (SSN, credit card, API keys, PII)
+- Restricted data: Requires Data Owner approval before creation
+
+STORAGE
+- Public: Public CDN, public S3 buckets (blocked by default)
+- Internal: Google Drive (Team Drives), Confluence, GitHub (internal repos)
+- Confidential: Encrypted S3 (SSE-KMS), Vault, restricted Confluence spaces,
+  GitHub (private repos with branch protection)
+- Restricted: Vault (secrets), HSM (keys), encrypted database (TDE), air-gapped
+  offline backups, classified document repository
+
+TRANSMISSION
+- Public: HTTPS, no restrictions
+- Internal: TLS 1.2+, corporate email/Slack/Drive
+- Confidential: TLS 1.3, encrypted email, SFTP (key-based), API (mTLS)
+- Restricted: TLS 1.3 + mTLS, physical media (encrypted, tamper-evident, courier),
+  diplomatic pouch for highest sensitivity, no email/Slack/cloud sharing
+
+PROCESSING
+- Public/Internal: Standard workstations, corporate cloud
+- Confidential: Hardened workstations, approved SaaS (DPA signed), VPC processing
+- Restricted: PAW only, air-gapped analysis environment, no internet access,
+  approved tools only, memory-safe languages preferred
+
+DISPOSAL
+- Public/Internal: Standard delete, empty trash, drive wipe (NIST SP 800-88 Clear)
+- Confidential: Cryptographic erase (key destruction), NIST Purge for media
+- Restricted: NIST Destroy (shred, degauss, incinerate), certificate of destruction,
+  witnessed disposal, chain of custody log
+
+5. DATA OWNERSHIP & STEWARDSHIP
+- Data Owner (VP/Director): Classification authority, access approval, retention policy
+- Data Steward (Team Lead): Day-to-day handling, quality, access reviews
+- Custodian (IT/Security): Technical controls, backup, monitoring, disposal execution
+- Privacy Officer: PII/PHI specific, DPIA, DSAR coordination, breach notification
+
+6. ACCESS CONTROL MATRIX
+Classification | Access Principle | Approval | Review Frequency
+---------------|------------------|----------|-----------------
+Public         | Open             | None     | Annual
+Internal       | Role-based (RBAC)| Manager  | Semi-annual
+Confidential   | Need-to-know     | Data Owner | Quarterly
+Restricted     | Need-to-know + Dual auth | CISO + Data Owner | Monthly
+
+7. THIRD-PARTY HANDLING
+- Vendor assessment: Security questionnaire, SOC 2, penetration test review
+- DPA/BAA required for Confidential/Restricted processing
+- Data Processing Addendum: Subprocessor notification, audit rights, deletion terms
+- Fourth-party risk: Subprocessor inventory, contract flow-down
+
+8. INCIDENT RESPONSE INTEGRATION
+- Classification determines SEV level baseline (Restricted breach = SEV-1)
+- Evidence preservation per classification handling requirements
+- Notification: Legal determines regulatory obligations per data type
+
+9. TRAINING & AWARENESS
+- Annual: All personnel (classification basics, labeling, handling)
+- Role-based: Developers (code classification), Sales (customer data), HR (PII),
+  Finance (financial data), Executives (Restricted handling)
+- Phishing simulations: Include classification-based lures
+
+10. COMPLIANCE MAPPING
+- GDPR: Personal data → Restricted (special category → Restricted+)
+- CCPA: Consumer data → Confidential/Restricted
+- HIPAA: PHI → Restricted (BAA required)
+- PCI DSS: Cardholder data → Restricted (tokenization required)
+- FedRAMP: Government data → Restricted (FIPS 140-2, US persons only)
+- ITAR: Defense articles → Restricted (US persons, export controls)
+
+11. EXCEPTIONS
+- Business justification, risk assessment, compensating controls
+- CISO approval (Confidential), CISO + Legal (Restricted)
+- Maximum 90 days, documented in ServiceNow, quarterly review
+
+CONTACT: data-classification@aegistech.com | Slack #data-governance | Ext. 4300

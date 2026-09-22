@@ -1,0 +1,73 @@
+AEGIS TECHNOLOGIES — REMOTE WORK & EQUIPMENT POLICY
+Effective: February 1, 2024 | Version: 1.8
+Classification: Internal — All Personnel
+Owner: VP People Operations & CISO
+
+1. PURPOSE
+Define eligibility, expectations, security requirements, and equipment provisions for
+remote and hybrid work arrangements at Aegis Technologies.
+
+2. ELIGIBILITY
+- All RFT/RPT employees eligible after 90-day probationary period
+- FTC/Intern: Manager discretion, max 2 days/week
+- Roles requiring on-site: Data center ops, hardware lab, physical security (designated)
+- International remote: Requires VP + Legal approval (tax, compliance, export control)
+
+3. HYBRID SCHEDULE
+- Standard: 3 days on-site (Tue/Wed/Thu core), 2 days remote (Mon/Fri)
+- Team agreements: Documented in Team Charter, approved by Director
+- Full remote: Exception-only (medical, relocation, critical talent), VP + CISO approval
+- "Anchor weeks": Quarterly all-hands week (mandatory on-site Tue–Thu)
+
+4. REMOTE WORK EXPECTATIONS
+- Core hours: 10:00–15:00 ET (overlap for all time zones)
+- Availability: Slack/Calendar updated, camera-on for collaborative meetings
+- Workspace: Ergonomic, private, secure (no public cafe work for Confidential+ data)
+- Internet: Minimum 50 Mbps down / 10 Mbps up, wired preferred, backup hotspot
+- Time zones: Hiring limited to ET ± 3 hours (AMER), GMT ± 2 (EMEA), SGT ± 2 (APAC)
+
+5. EQUIPMENT PROVISIONING
+Standard Kit (issued Day 1):
+- Laptop: MacBook Pro 16" (M3 Max, 64GB) or Dell Precision 7680 (i9, 64GB)
+- Monitor: 27" 4K USB-C (Dell U2723QE) × 2
+- Dock: CalDigit TS4 / Dell WD22TB4
+- Input: MX Keys + MX Master 3S / ergonomic alt on request
+- Audio: Jabra Evolve2 85 (ANC), Logitech Brio 4K webcam
+- Security: YubiKey 5C NFC (2x), privacy screen, laptop lock
+
+Refresh Cycle: 3 years (laptop), 5 years (monitor/dock), as-needed (accessories)
+Return: Within 5 business days of separation (prepaid label provided)
+Damage/Loss: First incident covered, subsequent = 50% cost share (neglect = 100%)
+
+6. SECURITY REQUIREMENTS (Remote)
+- MDM enrollment mandatory (Jamf / Intune), device compliance checked continuously
+- Always-on VPN (Tailscale) or ZTNA (Cloudflare Access) for corporate resources
+- No Confidential/Restricted data on personal devices (clipboard, downloads, screenshots)
+- Screen lock: 5 min idle, immediate on lid close / Win+L / Cmd+Ctrl+Q
+- Household: No work discussions in earshot, no family use of corporate devices
+- Travel: Loaner device for high-risk countries (China, Russia, Iran, NK, Cuba), CISO pre-approval
+
+7. CO-WORKING & OFFICE STIPEND
+- Co-working: WeWork All Access / local equivalent (company-paid, max $500/mo)
+- Home office stipend: $1,500 one-time (desk, chair, lighting, cable mgmt)
+- Monthly: $100 internet/utility reimbursement (receipts quarterly)
+- Ergonomic assessment: Virtual (annual), in-person (on request)
+
+8. TAX & COMPLIANCE
+- Employee responsible for home office tax implications (consult tax advisor)
+- State/country registration: HR must know primary work location at all times
+- Permanent relocation: 30-day notice, new hire paperwork if new jurisdiction
+- International: Maximum 30 consecutive days without entity setup (tax residency risk)
+
+9. MANAGER RESPONSIBILITIES
+- Set clear outcomes (OKRs), not hours monitoring
+- Weekly 1:1 (30 min), bi-weekly team sync, monthly in-person if hybrid
+- Proximity bias prevention: Equal opportunity for projects, visibility, promotion
+- Equipment approvals, stipend reimbursements, security compliance checks
+
+10. EXCEPTIONS & ACCOMMODATIONS
+- ADA/medical: Interactive process with HR, reasonable accommodation prioritized
+- Temporary: Caregiving, medical recovery, home repair (up to 4 weeks, manager approval)
+- Emergency: Natural disaster, civil unrest, pandemic — CISO declares, policy suspended
+
+CONTACT: remote-work@aegistech.com | Slack #remote-work | Facilities: facilities@aegistech.com
