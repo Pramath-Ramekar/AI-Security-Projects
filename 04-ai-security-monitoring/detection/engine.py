@@ -11,7 +11,6 @@ from detection.rules import evaluate_event
 from detection.tool_chain import detect_chains
 from detection.anomaly import detect_rate_anomalies, detect_new_user_behavior
 from detection.correlation import correlate
-from detection.risk_scoring import score_event, score_to_severity
 from alerts.manager import process_incidents
 from collector.collector import load_events
 

@@ -81,6 +81,8 @@ def detect_chains(session_events: list[dict]) -> list[dict]:
                 "rule": pattern["id"],
                 "name": pattern["name"],
                 "severity": pattern["severity"],
+                "user_id": user,
+                "application": session_events[0].get("application") if session_events else None,
                 "reason": f"Tool chain detected in session '{sess}' (user '{user}'): "
                           f"{pattern['description']}",
                 "trigger_events": [e.get("event_id") for e in window_events],

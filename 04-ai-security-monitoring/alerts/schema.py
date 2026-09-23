@@ -14,6 +14,7 @@ class Alert:
     alert_id: str = field(default_factory=lambda: f"ALERT-{uuid.uuid4().hex[:6].upper()}")
     timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     application: Optional[str] = None
+    risk_score: int = 0
     rules_fired: list = field(default_factory=list)
     event_ids: list = field(default_factory=list)
     status: str = "open"
@@ -31,7 +32,10 @@ def make_alert(incident: dict, application: Optional[str] = None) -> Alert:
         severity=incident.get("severity", "low"),
         user_id=incident.get("user_id", "unknown"),
         reason=incident.get("reason", ""),
-        application=application,
+        # The incident knows which application it came from; the explicit
+        # argument is only an override for single-app deployments.
+        application=application or incident.get("application"),
+        risk_score=incident.get("risk_score", 0),
         rules_fired=incident.get("rules_fired", []),
         event_ids=incident.get("event_ids", []),
         incident_type=incident.get("type", "SINGLE_FINDING"),

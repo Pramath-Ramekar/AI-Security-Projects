@@ -7,6 +7,12 @@ import json
 import os
 from datetime import datetime, timezone
 
+try:
+    from security.telemetry import emit_audit_event
+    TELEMETRY_ENABLED = os.environ.get("AEGIS_TELEMETRY", "1") != "0"
+except ImportError:
+    TELEMETRY_ENABLED = False
+
 LOG_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "logs"))
 LOG_FILE = os.path.join(LOG_DIR, "audit.jsonl")
 
@@ -52,6 +58,21 @@ def log(
         "details": details or {},
     }
     _write(entry)
+
+    # Forward to the AI SOC (Project 04). Fails silently by design — the
+    # agent's security pipeline must not depend on monitoring being up.
+    if TELEMETRY_ENABLED:
+        try:
+            emit_audit_event(
+                event_type=event_type,
+                tool_name=tool_name,
+                arguments=arguments,
+                user=user,
+                session_id=session_id,
+                details=details,
+            )
+        except Exception:
+            pass
 
 
 def read_log(last_n: int = 20) -> list:
