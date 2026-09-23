@@ -1,0 +1,5 @@
+from attacks.prompt_injection import DIRECT_INJECTION_ATTACKS
+from attacks.indirect_injection import INDIRECT_INJECTION_ATTACKS
+from attacks.excessive_agency import EXCESSIVE_AGENCY_ATTACKS
+
+ALL_ATTACKS = DIRECT_INJECTION_ATTACKS + INDIRECT_INJECTION_ATTACKS + EXCESSIVE_AGENCY_ATTACKS
