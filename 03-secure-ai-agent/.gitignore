@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+logs/
+evaluation/results.json
+data/mailbox/sent/
+# sandbox is a runtime artifact directory — exclude generated files, keep test.txt
+data/sandbox/**
+!data/sandbox/test.txt
+*.egg-info/
+.venv/
+venv/

@@ -1,0 +1,2 @@
+This is a safe sandbox test file.
+The agent may read, write, or list files here.

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "EMP-101",
+    "name": "Alice Chen",
+    "role": "Security Engineer",
+    "department": "Engineering",
+    "email": "alice.chen@aegis.internal",
+    "salary": 145000,
+    "clearance": "SECRET",
+    "manager": "EMP-105"
+  },
+  {
+    "id": "EMP-102",
+    "name": "Bob Martinez",
+    "role": "Data Analyst",
+    "department": "Analytics",
+    "email": "bob.martinez@aegis.internal",
+    "salary": 115000,
+    "clearance": "CONFIDENTIAL",
+    "manager": "EMP-106"
+  },
+  {
+    "id": "EMP-103",
+    "name": "Carol Singh",
+    "role": "HR Manager",
+    "department": "Human Resources",
+    "email": "carol.singh@aegis.internal",
+    "salary": 125000,
+    "clearance": "CONFIDENTIAL",
+    "manager": "EMP-107"
+  },
+  {
+    "id": "EMP-104",
+    "name": "Dave Thompson",
+    "role": "DevOps Engineer",
+    "department": "Engineering",
+    "email": "dave.thompson@aegis.internal",
+    "salary": 130000,
+    "clearance": "SECRET",
+    "manager": "EMP-105"
+  },
+  {
+    "id": "EMP-105",
+    "name": "Eve Nakamura",
+    "role": "VP Engineering",
+    "department": "Engineering",
+    "email": "eve.nakamura@aegis.internal",
+    "salary": 230000,
+    "clearance": "TOP_SECRET",
+    "manager": "EMP-108"
+  }
+]
