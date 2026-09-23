@@ -10,16 +10,33 @@ Covers **OWASP LLM01** (Prompt Injection), **LLM02** (Insecure Output Handling),
 
 ## Results (real numbers — 2026-09-23)
 
+Two evaluations, because they answer different questions.
+
+**Live** — the real hardened agent from Project 02, real attack prompts, real telemetry:
+
 | Metric | Result |
 |---|---|
-| Events processed | 874 |
-| Attack scenarios | 10 |
-| Detection rate | **80%** |
+| Attacks run against the real agent | 7 |
+| Live telemetry events captured | 57 |
+| Detection rate | **85.7%** (6/7) |
+| Alerts | 3 (2 CRITICAL, 1 MEDIUM) |
+| Detection time | 0.014s |
+
+**Synthetic** — a seeded 874-event corpus for reproducible regression measurement:
+
+| Metric | Result |
+|---|---|
+| Events processed | 874 (800 normal + 74 attack) |
+| Detection rate | **100%** (10/10 scenarios) |
 | False positive rate | **0%** |
 | HIGH/CRITICAL alerts | 3 / 3 |
-| Detection time | 0.204s |
+| Detection time | 0.234s |
 
-See [`RESULTS.md`](RESULTS.md) for full breakdown and analysis.
+Tests: **28 passed, 0 failed**.
+
+Live figures vary between runs — the LLM is non-deterministic, and one attacker
+alert fired on *unknown user* rather than an attack rule. Both caveats, and the
+five bugs the evaluation surfaced, are documented in [`RESULTS.md`](RESULTS.md).
 
 ---
 
@@ -93,10 +110,11 @@ STREAMLIT DASHBOARD
 | RULE-005 | ≥30 requests in 1 minute (rate abuse) | HIGH |
 | RULE-006 | >3 security violations in 5 minutes (suspicious session) | HIGH |
 | RULE-007 | execute_command tool requested (any decision) | HIGH–CRITICAL |
+| RULE-008 | Blocked request for a side-effecting tool (send_email, create_file) | MEDIUM–HIGH |
 | CHAIN-READ-EXFIL | read_file → send_email | CRITICAL |
 | CHAIN-SEARCH-DUMP | search_employee → send_email | HIGH |
 | CHAIN-READ-EXEC | read_file → execute_command | CRITICAL |
-| ANOMALY-001 | Hourly request rate > 3σ above user mean | HIGH |
+| ANOMALY-001 | Hourly request rate spike (median/MAD robust score) | HIGH–CRITICAL |
 | ANOMALY-002 | Unknown user with no baseline | MEDIUM |
 
 ---
@@ -106,18 +124,26 @@ STREAMLIT DASHBOARD
 ```bash
 pip install -r requirements.txt
 
-# 1. Generate traffic (800 normal + 74 attack events)
-python evaluation/generate_traffic.py
+# ── Live: monitor the REAL agent from Project 02 ──
+# Requires ollama running with llama3.2.
+# Runs real attacks through the hardened agent; its security pipeline
+# emits live telemetry to the SOC, which then detects on it.
+python evaluation/live_integration.py
 
-# 2. Run detection + get real metrics
-python evaluation/replay.py
+# ── Synthetic: reproducible corpus ──
+python evaluation/generate_traffic.py    # 800 normal + 74 attack events
+python evaluation/replay.py              # detect + write metrics
 
-# 3. Launch dashboard
+# ── Dashboard ──
 streamlit run dashboard/app.py
 
-# 4. (Optional) run detection engine directly
-python detection/engine.py
+# ── Tests ──
+python tests/test_detection.py
 ```
+
+> **Warning:** `replay.py` and `live_integration.py` each **delete
+> `logs/events.jsonl`** on start so their results are clean. Never run either
+> during an investigation — see [`INCIDENT_RESPONSE.md`](INCIDENT_RESPONSE.md).
 
 ---
 
@@ -126,8 +152,11 @@ python detection/engine.py
 ```
 04-ai-security-monitoring/
 ├── README.md
-├── RESULTS.md
-├── ARCHITECTURE.md
+├── RESULTS.md               Real numbers + the 5 bugs the evaluation found
+├── ARCHITECTURE.md          Pipeline, telemetry bridge, design decisions
+├── THREAT_MODEL.md          Threats against the SOC itself (7, honestly scored)
+├── DETECTION_RULES.md       Rule catalogue + FP tuning + coverage gaps
+├── INCIDENT_RESPONSE.md     validate → preserve → revoke → assess → communicate
 ├── docs/
 │   └── SCENARIO.md         Aegis AI SOC — users, apps, event types
 ├── collector/
@@ -147,14 +176,20 @@ python detection/engine.py
 ├── dashboard/
 │   └── app.py               Streamlit SOC dashboard
 ├── evaluation/
+│   ├── live_integration.py  Real agent + real attacks + live telemetry
 │   ├── generate_traffic.py  Synthetic normal + attack event generator
-│   ├── replay.py            Full evaluation harness + metrics
+│   ├── replay.py            Synthetic evaluation harness + metrics
 │   ├── normal_traffic.json  800 normal events (generated)
 │   └── attack_traffic.json  74 attack events across 10 scenarios
+├── tests/
+│   └── test_detection.py    28 tests, incl. regressions for every fixed bug
 └── logs/
     ├── events.jsonl          (runtime — gitignored)
     └── alerts.jsonl          (runtime — gitignored)
 ```
+
+The telemetry bridge lives in the monitored application, not here:
+`03-secure-ai-agent/security/telemetry.py`
 
 ---
 
@@ -162,20 +197,27 @@ python detection/engine.py
 
 ```
 Project 02: Secure Agent
-  └── security layer emits SecurityEvents
-        │
-        └──→ Project 04: SOC
-               ├── detects blocked tool calls
-               ├── correlates attack chains
-               └── generates alerts
-
-Project 03: Secure RAG
-  └── security layer emits SecurityEvents
-        │
-        └──→ Project 04: SOC
-               ├── detects unauthorized retrieval
-               ├── detects secret access
-               └── escalates multi-app chains
+  │
+  │  audit_logger.log()  ← already fired on every policy decision
+  │        │
+  │        └── security/telemetry.py :: emit_audit_event()
+  │                   translates audit record → SecurityEvent
+  │
+  └──────────────────────────→ Project 04: SOC
+                                 ├── detects blocked tool calls
+                                 ├── correlates attack chains
+                                 └── generates alerts
 ```
+
+The bridge hooks the agent's existing audit choke point, so no call site in
+Project 02 changed. It fails silently by design — monitoring going down must
+not become an agent outage — and honours `AEGIS_TELEMETRY=0` as a kill switch.
+
+Live telemetry is tagged `"source": "live"` to distinguish it from replayed
+synthetic fixtures sharing the same log.
+
+**Status:** Project 02 is wired and verified end-to-end. Project 03 (Secure
+RAG) emits the same schema and is covered by the rules, but its bridge is not
+yet installed — its events in the corpus are synthetic.
 
 This is one security platform, not three independent repositories.

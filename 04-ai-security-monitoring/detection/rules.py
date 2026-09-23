@@ -34,6 +34,8 @@ def rule_prompt_injection(event: dict) -> Optional[dict]:
             "rule": "RULE-001",
             "name": "Prompt Injection Detected",
             "severity": "high",
+            "user_id": event.get("user_id"),
+            "application": event.get("application"),
             "reason": f"Prompt injection event from user '{event.get('user_id')}' "
                       f"on {event.get('application')}",
             "trigger_event": event.get("event_id"),
@@ -51,6 +53,8 @@ def rule_blocked_burst(session_events: list[dict], threshold: int = 5) -> Option
             "rule": "RULE-002",
             "name": "Blocked Request Burst",
             "severity": "high",
+            "user_id": user,
+            "application": blocked[0].get("application"),
             "reason": f"{len(blocked)} blocked requests in 1 minute from user '{user}'",
             "trigger_events": [e.get("event_id") for e in blocked],
         }
@@ -67,6 +71,8 @@ def rule_sensitive_unauthorized(event: dict) -> Optional[dict]:
                 "rule": "RULE-003",
                 "name": "Sensitive Unauthorized Retrieval",
                 "severity": "critical",
+                "user_id": event.get("user_id"),
+                "application": event.get("application"),
                 "reason": f"User '{event.get('user_id')}' attempted unauthorized access "
                           f"to sensitive document '{doc}'",
                 "trigger_event": event.get("event_id"),
@@ -75,6 +81,8 @@ def rule_sensitive_unauthorized(event: dict) -> Optional[dict]:
             "rule": "RULE-003b",
             "name": "Unauthorized Document Retrieval",
             "severity": "high",
+            "user_id": event.get("user_id"),
+            "application": event.get("application"),
             "reason": f"User '{event.get('user_id')}' unauthorized retrieval of '{doc}'",
             "trigger_event": event.get("event_id"),
         }
@@ -88,6 +96,8 @@ def rule_secret_access(event: dict) -> Optional[dict]:
             "rule": "RULE-004",
             "name": "Secret Access Attempt",
             "severity": "critical",
+            "user_id": event.get("user_id"),
+            "application": event.get("application"),
             "reason": f"User '{event.get('user_id')}' attempted to access secrets/credentials "
                       f"via {event.get('application')}",
             "trigger_event": event.get("event_id"),
@@ -109,6 +119,8 @@ def rule_high_rate(
             "rule": "RULE-005",
             "name": "High Request Rate",
             "severity": "high",
+            "user_id": user_id,
+            "application": recent[0].get("application") if recent else None,
             "reason": f"User '{user_id}' sent {len(recent)} requests in {window_minutes} minute(s) "
                       f"(threshold: {threshold})",
             "trigger_events": [e.get("event_id") for e in recent[:10]],
@@ -135,6 +147,8 @@ def rule_repeated_violations(
             "rule": "RULE-006",
             "name": "Suspicious Session — Repeated Violations",
             "severity": "high",
+            "user_id": user,
+            "application": violations[0].get("application"),
             "reason": f"Session '{sess}' (user '{user}') had {len(violations)} security violations "
                       f"in {window_minutes} minutes",
             "trigger_events": [e.get("event_id") for e in violations],
@@ -151,6 +165,8 @@ def rule_dangerous_tool(event: dict) -> Optional[dict]:
             "rule": "RULE-007",
             "name": "Dangerous Tool Access",
             "severity": severity,
+            "user_id": event.get("user_id"),
+            "application": event.get("application"),
             "reason": f"User '{event.get('user_id')}' requested execute_command "
                       f"(decision: {decision})",
             "trigger_event": event.get("event_id"),
@@ -158,11 +174,44 @@ def rule_dangerous_tool(event: dict) -> Optional[dict]:
     return None
 
 
+#: Tools whose misuse has side effects outside the agent. A *blocked* request
+#: for one of these is still an attacker signal worth recording on its own.
+HIGH_RISK_TOOLS = {"send_email", "execute_command", "create_file"}
+
+
+def rule_blocked_high_risk_tool(event: dict) -> Optional[dict]:
+    """Rule 8: a blocked request for a side-effecting tool.
+
+    Without this, a single denied `send_email` produces one finding, which sits
+    below the 2-finding bar for correlated escalation and so never alerts. A
+    lone exfiltration attempt that policy caught would go unreported.
+    """
+    tool = event.get("tool")
+    if tool not in HIGH_RISK_TOOLS:
+        return None
+    if event.get("decision") != "blocked":
+        return None
+    # RULE-007 already covers execute_command in more detail.
+    if tool == "execute_command":
+        return None
+    return {
+        "rule": "RULE-008",
+        "name": "Blocked High-Risk Tool Request",
+        "severity": "high" if tool == "send_email" else "medium",
+        "user_id": event.get("user_id"),
+        "application": event.get("application"),
+        "reason": f"User '{event.get('user_id')}' request for side-effecting tool "
+                  f"'{tool}' was blocked by policy",
+        "trigger_event": event.get("event_id"),
+    }
+
+
 def evaluate_event(event: dict, all_events: list[dict], session_events: list[dict]) -> list[dict]:
     """Run all per-event and session rules. Returns list of fired rule dicts."""
     findings = []
     for rule_fn in [rule_prompt_injection, rule_sensitive_unauthorized,
-                    rule_secret_access, rule_dangerous_tool]:
+                    rule_secret_access, rule_dangerous_tool,
+                    rule_blocked_high_risk_tool]:
         result = rule_fn(event)
         if result:
             findings.append(result)
